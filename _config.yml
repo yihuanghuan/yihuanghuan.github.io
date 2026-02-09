@@ -23,7 +23,7 @@ repository               : "yihuanghuan/yihuanghuan.github.io"
 #               Additional customization can be done by editing /_includes/author-profile.html
 author:
   # Biographic information
-  avatar           : "test.png"
+  avatar           : "test.png"   # 后面修改成自己工作照片
   name             : "Yihuan Huang"
   pronouns         : # example: "she/her"  
   bio              : "Undergraduate Student in Robotics Engineering at Chongqing University."
