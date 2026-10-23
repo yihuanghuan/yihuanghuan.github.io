@@ -1,0 +1,111 @@
+/* Small accessibility and responsive additions to Jon Barron's stylesheet.
+   Core typography and link styling are preserved in template.css. */
+*{box-sizing:border-box}
+body{margin:0;background:#fff;color:#111;line-height:1.55}
+.page-table{width:100%;max-width:800px;border:0;border-spacing:0;border-collapse:separate;margin:0 auto;table-layout:fixed}
+.page-cell{padding:20px;vertical-align:top}
+.intro{padding:8px 0 14px}
+.name{text-align:center;padding:16px 0 8px;font-size:32px;font-weight:400;line-height:1.3}
+.name span{font-size:21px;font-weight:400;margin-left:8px}
+.intro p{margin:14px 0}
+.contact-links{text-align:center}
+section{margin-top:26px;scroll-margin-top:20px}
+h2{margin:0 0 12px}
+h3.papertitle{font-size:14px;margin:0;line-height:1.55}
+.section-intro{margin:0 0 14px}
+.research-table{width:100%;border:0;border-spacing:0;border-collapse:separate}
+.research-entry{padding:0 0 23px;vertical-align:top}
+.research-table tr:last-child .research-entry{padding-bottom:0}
+.entry-meta{margin:3px 0 0}
+.submission-status{color:#234f80;font-weight:600}
+.review-status{color:#555;font-style:italic}
+.entry-links{margin:3px 0 0}
+.research-entry p{margin:7px 0 0}
+.plain-list{list-style:none;padding:0;margin:0}
+.plain-list li{margin:0 0 15px}
+footer{font-size:12px;line-height:1.6;color:#666;text-align:right;margin:36px 0 12px}
+footer a{font-size:12px}
+a:focus-visible{outline:2px solid #1772d0;outline-offset:3px}
+a:hover,a:focus{color:#924b00;text-decoration:underline}
+.skip-link{position:absolute;top:-100px;left:12px;padding:8px;background:#fff}
+.skip-link:focus{top:8px}
+.back-link{margin:10px 0 28px}
+.project-detail h1{font-size:26px;line-height:1.3;font-weight:400;margin:0 0 14px}
+.project-detail header p{margin:10px 0}
+.project-detail section{margin-top:27px}
+.project-detail li{margin-bottom:8px}
+.project-detail ul,.project-detail ol,.related-projects ul{padding-left:22px}
+.project-detail p{margin:10px 0}
+.related-projects{margin-top:30px}
+.related-projects li{margin:5px 0}
+.research-with-image{display:grid;grid-template-columns:180px minmax(0,1fr);gap:20px;align-items:center}
+.research-thumbnail img{display:block;width:100%;height:auto}
+.project-detail h3{font-size:16px;font-weight:700;margin:25px 0 12px;line-height:1.5}
+.research-figure{margin:18px 0 23px}
+.research-figure img,.research-figure video{display:block;max-width:100%;width:100%;height:auto}
+.research-figure.figure-medium img{max-width:min(100%,540px);margin-inline:auto}
+.research-figure.figure-medium video{max-width:min(100%,540px);margin-inline:auto}
+.research-figure.figure-small img{max-width:min(100%,460px);margin-inline:auto}
+.research-figure.figure-lab img{max-width:min(100%,420px);margin-inline:auto}
+.research-figure figcaption{font-size:12px;color:#555;line-height:1.55;margin-top:9px}
+.project-detail .project-abstract{margin:22px 0}
+.result-table{width:100%;border-collapse:collapse;margin:18px 0}
+.result-table caption{text-align:left;font-size:13px;margin-bottom:8px}
+.result-table th,.result-table td{text-align:left;padding:8px 10px;border-bottom:1px solid #ddd;vertical-align:top}
+.result-table thead th{border-bottom:1px solid #aaa}
+.table-scroll{max-width:100%;overflow-x:auto;margin:18px 0 8px}
+.table-scroll:focus-visible{outline:2px solid #1772d0;outline-offset:3px}
+.table-scroll .safety-table{min-width:640px;margin:0}
+.safety-table th,.safety-table td{font-size:13px;padding:8px}
+.safety-table td{text-align:right;font-variant-numeric:tabular-nums}
+.safety-table tbody+tbody{border-top:1px solid #aaa}
+.sample-count{font-weight:400;white-space:nowrap}
+.project-detail .table-note{font-size:12px;color:#555;line-height:1.55;margin:9px 0 22px}
+.nomad-demo-grid{display:grid;grid-template-columns:225px minmax(0,1fr);gap:22px;align-items:center}
+.nomad-demo-grid .research-figure{min-width:0;margin:8px 0 15px}
+.nomad-demo-grid h3{margin:0 0 12px;font-size:14px}
+.nomad-portrait video{max-width:225px;margin-inline:auto}
+.nomad-detail .result-table th{width:34%}
+.motion-relation{display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap;margin:22px 0;padding:18px 12px;border-top:1px solid #d4dfe7;border-bottom:1px solid #d4dfe7;text-align:center;color:#356b95}
+.motion-relation span:not([aria-hidden]),.motion-relation strong{max-width:155px}
+.arm-results{min-width:580px}
+.arm-results th,.arm-results td{font-size:13px}
+.perception-evolution li{padding-left:5px;margin-bottom:14px}
+.arm-trial-sequence{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin:20px 0 8px}
+.arm-trial-sequence .research-figure{margin:0;min-width:0}
+.arm-trial-sequence figcaption{color:#263746}
+.vex-practice-grid{display:grid;grid-template-columns:minmax(0,1fr) 240px;gap:24px;align-items:start}
+.vex-practice-grid .research-figure{margin:10px 0}
+.vex-sorting-sequence{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px;margin:22px 0;padding:0!important;list-style:none;counter-reset:sorting}
+.vex-sorting-sequence li{counter-increment:sorting;border-top:2px solid #cbd6df;padding-top:9px}
+.vex-sorting-sequence strong::before{content:counter(sorting) '. ';color:#356b95}
+.vex-sorting-sequence span{display:block;margin-top:5px}
+.vex-photo-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
+.vex-photo-grid .research-figure{min-width:0;margin:12px 0}
+.vex-results{margin-top:22px}
+.vex-gallery{margin:22px 0}
+.vex-memory{margin:18px 0;padding:2px 0 2px 18px;border-left:3px solid #cbd6df}
+ .vex-memory p{line-height:1.85;color:#263746}
+.vex-memory p+p{font-size:12px;color:#555}
+.vex-gallery-track{position:relative;display:flex;gap:20px;overflow-x:scroll;overscroll-behavior-inline:contain;padding:0 0 24px}
+.vex-gallery-track>.research-figure{flex:0 0 82%;max-width:560px;min-width:0;margin:0}
+.vex-gallery-track img{aspect-ratio:4/3;object-fit:contain;background:#f6f7f8;border-radius:10px}
+.vex-gallery-track:focus-visible{outline:2px solid #1772d0;outline-offset:4px}
+@media(max-width:600px){.vex-practice-grid{grid-template-columns:1fr;gap:6px}.vex-practice-grid .research-figure{max-width:260px;margin:12px auto}.vex-sorting-sequence{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.vex-photo-grid{grid-template-columns:1fr;gap:10px}}
+@media(max-width:600px){.arm-trial-sequence{grid-template-columns:1fr;gap:20px}.arm-trial-sequence .research-figure{max-width:320px;margin-inline:auto}}
+@media(max-width:600px){.nomad-demo-grid{grid-template-columns:1fr;gap:18px}.nomad-demo-grid .nomad-portrait{max-width:260px;margin-inline:auto}.nomad-demo-grid h3{margin-top:6px}.nomad-detail .result-table th{width:38%}}
+@media(max-width:600px){.research-with-image{grid-template-columns:1fr;gap:12px}.research-thumbnail{display:block;max-width:220px}.result-table th,.result-table td{padding:7px 5px;font-size:13px}}
+@media(max-width:600px){.page-cell{padding:18px 20px}.intro{padding-top:0}.name{font-size:29px;padding-top:8px}.name span{font-size:18px}.project-detail h1{font-size:23px}.research-entry{padding-bottom:24px}section{margin-top:24px}}
+@media(max-width:600px){.motion-relation{flex-direction:column;gap:8px}.motion-relation span:not([aria-hidden]),.motion-relation strong{max-width:100%}}
+
+.vex-gallery-track::-webkit-scrollbar{height:8px;background:none}
+.vex-gallery-track::-webkit-scrollbar-track{background:#eee;border-radius:4px;margin-left:120px;margin-right:120px}
+.vex-gallery-track::-webkit-scrollbar-thumb{background:#888;border-radius:4px}
+.vex-gallery-track::-webkit-scrollbar-thumb:hover{background:#666}
+@supports not selector(::-webkit-scrollbar){.vex-gallery-track{scrollbar-color:#888 #eee;scrollbar-width:thin}}
+.vex-season-grid{display:grid;grid-template-columns:minmax(0,2fr) minmax(0,1fr);gap:24px;align-items:center;margin:20px 0}
+.vex-season-grid .research-figure{margin:0;min-width:0}
+.vex-ring-pair{display:flex;justify-content:center;gap:12px;margin:0 0 12px}
+.vex-game-pieces .vex-ring-pair img{width:30%;height:70px;object-fit:contain}
+.vex-game-pieces img.vex-mobile-goal{width:110px;height:140px;object-fit:contain;margin:0 auto 12px}
+@media(max-width:600px){.vex-season-grid{grid-template-columns:1fr;gap:18px}.vex-game-pieces{max-width:260px;margin-inline:auto!important}.vex-gallery-track::-webkit-scrollbar-track{margin-left:32px;margin-right:32px}}
