@@ -2,6 +2,7 @@ import { readFile, readdir, stat } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 import { join, resolve, dirname } from 'node:path';
 import { projects, competitionProjects } from '../content/projects.mjs';
+import { courseProjects } from '../content/course-projects.mjs';
 
 const root = fileURLToPath(new URL('../dist/',import.meta.url));
 const errors = [];
@@ -29,7 +30,7 @@ for(const path of pages){
  }
  if(/href="#"|TODO|placeholder|TBD/.test(html))errors.push(`${path}: unfinished public content`);
 }
-const expectedPages = projects.length + competitionProjects.length + 1;
+const expectedPages = projects.length + competitionProjects.length + courseProjects.length + 1;
 if(pages.length!==expectedPages)errors.push(`Expected ${expectedPages} pages; found ${pages.length}`);
 const home=await readFile(join(root,'index.html'),'utf8');
 for(const phrase of ['Under review','final-10-s','SLAM and encoders','in progress','Gazebo simulation'])if(!home.includes(phrase))errors.push(`Homepage missing qualifier: ${phrase}`);

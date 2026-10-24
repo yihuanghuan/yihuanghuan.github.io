@@ -8,6 +8,10 @@ import { uavSwarmBody } from '../content/uav-swarm-page.mjs';
 import { nomadBody } from '../content/nomad-page.mjs';
 import { westlakeBody } from '../content/westlake-page.mjs';
 import { vexBody } from '../content/vex-page.mjs';
+import { courseProjects } from '../content/course-projects.mjs';
+import { mobileManipulatorBody } from '../content/mobile-manipulator-page.mjs';
+import { stirlingEngineBody } from '../content/stirling-engine-page.mjs';
+import { ecgBody } from '../content/ecg-page.mjs';
 
 // Adapted from https://github.com/jonbarron/jonbarron.github.io
 const root = fileURLToPath(new URL('../', import.meta.url));
@@ -62,13 +66,16 @@ function home() {
 <p>${escape(competitionProjects[0].summary)}</p>
 <p>2025 VEX Worlds · <strong>Technology Division quarter-finalist</strong> (CQU2).</p>
 </div></div></section>
-<section id="additional-projects"><h2>Other Projects</h2><ul class="plain-list"><li><strong>Vision-Guided Mobile Manipulator</strong> · Course project, Sep 2024–Jan 2025<br>A mobile platform with a 4-DoF arm for picking, placing, and character writing, using OpenMV perception, inverse kinematics, and servo control.</li></ul></section>
+<section id="additional-projects"><h2>Other Projects</h2><table class="research-table" role="presentation"><tbody>${courseProjects.map(p => `<tr><td class="research-entry"><div class="research-with-image"><a class="research-thumbnail" href="./projects/${p.slug}/"><img src="./assets/${p.thumbnail}" alt="${escape(p.imageAlt)}" loading="lazy"></a><div><h3 class="papertitle"><a href="./projects/${p.slug}/">${escape(p.title)}</a></h3><div class="entry-meta">${escape(p.course)} · Course project</div><div class="entry-links"><a href="./projects/${p.slug}/">Project</a>${p.slug === 'stirling-engine' ? ` / <a href="./projects/${p.slug}/#demo">Experiment video</a>` : ''}</div><p>${escape(p.summary)}</p></div></div></td></tr>`).join('')}</tbody></table></section>
 <section id="education"><h2>Education</h2><p><strong>Chongqing University</strong>, B.Eng. in Robotics Engineering<br>September 2023–June 2027 (expected)</p></section>
 <section id="experience"><h2>Teaching & Mentoring</h2><ul class="plain-list"><li><strong>Undergraduate Teaching Assistant</strong>, Department of Robotics Engineering<br>Guided more than 90 students through STM32 programming and debugging.</li></ul></section>`;
  return shell({title:'Yihuan Huang',description:'Yihuan Huang, Robotics Engineering undergraduate at Chongqing University. Research interests in robot learning, vision-language-action policies, and generalizable manipulation.',body});
 }
 
 function detail(p) {
+ if (p.slug === 'mobile-manipulator') return shell({title:'Mobile Manipulation and Writing | Yihuan Huang',description:p.summary,body:mobileManipulatorBody(),prefix:'../../'});
+ if (p.slug === 'stirling-engine') return shell({title:'Stirling Engine Modeling and Prototyping | Yihuan Huang',description:p.summary,body:stirlingEngineBody(),prefix:'../../'});
+ if (p.slug === 'ecg-signal-processing') return shell({title:'Embedded ECG Signal Processing | Yihuan Huang',description:p.summary,body:ecgBody(),prefix:'../../'});
  if (p.slug === 'vex-robotics') return shell({title:'VEX Robotics | Yihuan Huang',description:p.summary,body:vexBody(),prefix:'../../'});
  if (p.slug === 'end-effector-stabilization') return shell({title:'End-Effector Stabilization | Yihuan Huang',description:p.summary,body:westlakeBody(),prefix:'../../'});
  if (p.slug === 'nomad-navigation') return shell({title:'NoMaD on TITA | Yihuan Huang',description:p.summary,body:nomadBody(),prefix:'../../'});
@@ -89,8 +96,8 @@ function detail(p) {
 await mkdir(out,{recursive:true});
 await cp(join(root,'public'),out,{recursive:true});
 await writeFile(join(out,'index.html'),home());
-for(const project of [...projects,...competitionProjects]){const target=join(out,'projects',project.slug,'index.html');await mkdir(dirname(target),{recursive:true});await writeFile(target,detail(project));}
+for(const project of [...projects,...competitionProjects,...courseProjects]){const target=join(out,'projects',project.slug,'index.html');await mkdir(dirname(target),{recursive:true});await writeFile(target,detail(project));}
 await writeFile(join(out,'robots.txt'),'User-agent: *\nAllow: /\nSitemap: https://yihuanghuan.github.io/sitemap.xml\n');
 await writeFile(join(out,'.nojekyll'),'');
-await writeFile(join(out,'sitemap.xml'),`<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">${['',...[...projects,...competitionProjects].map(p=>'projects/'+p.slug+'/')].map(path=>`<url><loc>https://yihuanghuan.github.io/${path}</loc></url>`).join('')}</urlset>`);
-console.log(`Built homepage, ${projects.length} research pages and ${competitionProjects.length} competition page using the Jon Barron template.`);
+await writeFile(join(out,'sitemap.xml'),`<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">${['',...[...projects,...competitionProjects,...courseProjects].map(p=>'projects/'+p.slug+'/')].map(path=>`<url><loc>https://yihuanghuan.github.io/${path}</loc></url>`).join('')}</urlset>`);
+console.log(`Built homepage, ${projects.length} research pages, ${competitionProjects.length} competition page and ${courseProjects.length} course-project pages using the Jon Barron template.`);

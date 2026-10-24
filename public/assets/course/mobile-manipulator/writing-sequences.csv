@@ -1,0 +1,36 @@
+sequence,executed_waypoint,stored_wrist_angle_degrees
+Two horizontal strokes,1,30.0
+Two horizontal strokes,2,74.533426
+Two horizontal strokes,3,73.476797
+Two horizontal strokes,4,74.533426
+Two horizontal strokes,5,44.598243
+Two horizontal strokes,6,30.0
+Two horizontal strokes,7,82.070996
+Two horizontal strokes,8,81.71494
+Two horizontal strokes,9,82.070996
+Two horizontal strokes,10,30.0
+Two horizontal strokes,11,128.0
+T,1,30.0
+T,2,82.070996
+T,3,81.71494
+T,4,82.070996
+T,5,55.843671
+T,6,30.0
+T,7,81.71494
+T,8,75.939057
+T,9,71.334017
+T,10,30.0
+T,11,128.0
+Cross,1,30.0
+Cross,2,82.070996
+Cross,3,81.71494
+Cross,4,82.070996
+Cross,5,55.843671
+Cross,6,30.0
+Cross,7,92.113944
+Cross,8,86.68459
+Cross,9,81.71494
+Cross,10,75.939057
+Cross,11,71.334017
+Cross,12,30.0
+Cross,13,128.0
