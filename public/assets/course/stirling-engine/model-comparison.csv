@@ -1,4 +1,4 @@
-configuration,calculated_work_J_per_cycle,source
-Baseline,0.1438,"Team presentation pp.43,45"
-Colder cold side,0.2325,"Team presentation pp.43,45"
-Reduced dead volume,0.2056,"Team presentation pp.43,45"
+configuration,calculated_work_J_per_cycle
+Baseline,0.1438
+Colder cold side,0.2325
+Reduced dead volume,0.2056
