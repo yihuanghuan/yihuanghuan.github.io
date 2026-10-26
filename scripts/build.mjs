@@ -81,6 +81,7 @@ function detail(p) {
 function preparePage(html, target) {
  const detailedFigures = new Set([
   'assets/late-swarm/framework.png', 'assets/late-swarm/commitment-results.png', 'assets/late-swarm/motion-style-results.png',
+  'assets/late-swarm/compositional-mission.png', 'assets/late-swarm/state-dependent-realization.png',
   'assets/westlake/mount-validation.png', 'assets/westlake/horizontal-error.png', 'assets/nomad/preprocessing-evaluation.png',
   'assets/nomad/deployment-pipeline.png', 'assets/course/stirling-engine/model-comparison.png',
   'assets/course/stirling-engine/cosimulation-en.png'

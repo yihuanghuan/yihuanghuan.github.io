@@ -25,13 +25,21 @@ ${researchMetadata(project)}
 <h3>2. Separating leader navigation from follower protection</h3>
 <p>A follower’s formation slot moves with the leader. I separated navigation and protection: the leader uses goal attraction and obstacle avoidance, while followers use local obstacle repulsion without that goal-distance attenuation, combined with formation feedback.</p>
 <h3>3. Making the combined signals executable</h3>
-<p>I added feedforward clipping and obstacle damping to keep acceleration estimates compatible with bounded formation correction. A nonzero estimator boundary layer reduces chattering, and body-axis thrust projection connects virtual force to the quadrotor dynamics.</p>
+<p>A nonzero estimator boundary layer reduces chattering, and body-axis thrust projection connects virtual force to the quadrotor dynamics. I joined these components at the command interface before transferring the controller to ROS 2.</p>
 ${figure('simulink-model.png', 'Simulink model connecting leader and follower controllers, distributed estimator, attitude mapping, and quadrotor dynamics.', 'Implemented Simulink model. The leader controller and follower controller produce virtual forces; the estimator supplies acceleration feedforward; attitude extraction maps these commands into the quadrotor dynamics.')}
 </section>
 
-<section id="ros2"><h2>ROS 2 / PX4 implementation</h2>
-<p>I transferred the control structure to ROS 2 Humble and PX4 SITL/Gazebo, with one controller instance per UAV. Each instance subscribes to the configured neighbors’ odometry and acceleration estimates. Formation commands pass through LADRC disturbance compensation and an acceleration-to-attitude/thrust mapping; PX4 retains the lower-level attitude and rate control.</p>
-<p>One practical issue was coordinate consistency: PX4 local origins differ for vehicles spawned at different Gazebo positions. I added spawn offsets before exchanging positions so that formation errors are computed in a common world frame.</p>
+<section id="ros2"><h2>From controller fusion to distributed execution</h2>
+<p>I transferred the control structure to ROS 2 Humble and PX4 SITL/Gazebo, with one controller instance per UAV. Each instance subscribes to its configured neighbors’ odometry and acceleration estimates, then follows the execution pipeline below.</p>
+<ol class="uav-execution-flow" aria-label="Implementation overview: per-UAV signal flow">
+<li><strong>Neighbor state</strong><span>Odometry and acceleration estimates</span></li>
+<li><strong>Fused command</strong><span>Formation feedback + role-specific avoidance</span></li>
+<li><strong>Flight interface</strong><span>LADRC + acceleration-to-attitude/thrust mapping</span></li>
+<li><strong>PX4 execution</strong><span>Attitude/rate loops → odometry feedback</span></li></ol>
+<p class="table-note">Implementation overview. Each odometry update closes the per-UAV feedback path; configured neighbor links carry the distributed state estimates.</p>
+<p><strong>Bound the signals at their interface.</strong> I clipped acceleration feedforward and added obstacle damping so that leader-motion estimates remained compatible with bounded formation correction. Estimator output, tracking correction, and local repulsion meet before the flight-command mapping. LADRC compensation and acceleration-to-attitude/thrust conversion connect that fused command to PX4, which retains attitude and rate control. This makes the responsibility of each layer explicit when moving from the Simulink model above to SITL.</p>
+<p><strong>Exchange states in a common world frame.</strong> PX4 instances spawned at different Gazebo locations use different local origins. I applied spawn offsets before exchanging vehicle positions and computing formation errors. This keeps a relative displacement tied to the actual placement of the vehicles in Gazebo as neighbor messages enter the controller.</p>
+<p>The estimator and potential-field methods came from my Pan and Wang reproductions. My integration joined their signals, coordinate conventions, and execution interfaces across Simulink and ROS 2/PX4 SITL, connecting formation response to a runnable distributed simulation.</p>
 <h3>Escaping a collinear obstacle trap</h3>
 <p>In the recorded wall experiment, the APF baseline stalled before the obstacle. Adding a rotating escape force with direction locking prevented repeated left/right reversals and allowed the leader to travel around the wall.</p>
 ${figure('deadlock-comparison.png', 'Leader trajectories with and without rotating escape force in the collinear wall experiment.', 'Gazebo collinear-wall comparison. The rotating-force variant with direction locking bypasses the wall and finishes about 0.4 m from the goal in this leader-trajectory comparison. <a href="'+report('deadlock_ablation/deadlock_ablation_report.md')+'">Experiment report and data</a>.')}
