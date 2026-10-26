@@ -11,7 +11,7 @@ export const courseProjects = [
     slug: 'stirling-engine',
     title: 'Modeling and Iterative Prototyping of a Stirling Engine',
     course: 'Engineering Design',
-    summary: 'Using thermodynamic modeling and ADAMS–Simulink co-simulation to understand why an engine would not run, then connect thermal and mechanical design changes to a working prototype.',
+    summary: 'Connected thermodynamic modeling and ADAMS–Simulink co-simulation to model-guided design changes and a working Stirling-engine prototype.',
     thumbnail: 'course/stirling-engine/thumbnail.jpg',
     imageAlt: 'The revised physical Stirling engine with its flywheel, paired gears, and water-cooling connections.'
   },
@@ -34,8 +34,8 @@ export function figure(slug, file, alt, caption, cls = '') {
   return `<figure class="research-figure ${cls}"><a href="${path}"><img src="${path}" alt="${alt}" loading="lazy"></a><figcaption>${caption}</figcaption></figure>`;
 }
 
-export function sectionLinks() {
-  return '<nav class="course-section-links" aria-label="Project sections"><a href="#question">Question</a> · <a href="#reasoning">Reasoning</a> · <a href="#approach">Approach</a> · <a href="#results">Results</a> · <a href="#takeaways">Takeaways</a></nav>';
+export function sectionLinks(items) {
+  return `<nav class="course-section-links" aria-label="Project sections">${items.map(([id,label])=>`<a href="#${id}">${label}</a>`).join(' · ')}</nav>`;
 }
 
 export function relatedCourses(slug) {

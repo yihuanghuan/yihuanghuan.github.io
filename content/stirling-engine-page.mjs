@@ -1,60 +1,27 @@
 import { courseNav, figure, sectionLinks, relatedCourses } from './course-projects.mjs';
 const slug = 'stirling-engine';
 const fig = (file, alt, caption, cls) => figure(slug, file, alt, caption, cls);
-
 export function stirlingEngineBody() {
-  return `${courseNav()}
-<article class="project-detail course-detail">
-<header><h1>When the Model Predicts Motion,<br>but the Engine Will Not Run</h1>
+ return `${courseNav()}<article class="project-detail course-detail">
+<header><h1>Model-Guided Design<br>of a Running Stirling Engine</h1>
 <p>Engineering Design · Chongqing University<br>Team course project · β-type Stirling engine with a rhombic drive</p>
-<p>My focus: thermodynamic modeling and ADAMS–Simulink co-simulation, connected to the team's prototype iterations.</p>
-${sectionLinks()}</header>
-
-<section id="background"><h2>From a thermodynamic cycle to a physical mechanism</h2>
-<p>A Stirling engine converts a temperature difference into mechanical motion through a sealed working gas. Our course project used a β-type configuration and a rhombic drive to coordinate the pistons. The first prototype assembled into the intended mechanism, yet failed to sustain rotation.</p>
-<div class="course-figure-pair">${fig('first-prototype.jpg', 'The first assembled engine with its flywheel and paired gears on a wooden base.', 'First prototype: the mechanism assembled, but did not sustain running.')}${fig('revised-prototype.jpg', 'The revised physical engine with a larger flywheel, paired gears, and cooling connections.', 'Revised prototype: changes addressed the drive, support structure, and thermal conditions.')}</div>
+<p>I developed the thermodynamic model and ADAMS–Simulink co-simulation, connecting calculated cycle behavior to the team’s prototype iterations.</p>
+${sectionLinks([['demo','Experiment'],['implementation','Model & design'],['results','Results']])}</header>
+<section id="demo"><h2>A working thermal–mechanical prototype</h2>
+<figure class="research-figure figure-medium"><video controls playsinline preload="none" poster="../../assets/course/stirling-engine/experiment-poster.jpg" aria-label="Running experiment of the revised Stirling engine"><source src="../../assets/course/stirling-engine/experiment.mp4" type="video/mp4">Your browser does not support embedded video.</video><figcaption>Original-speed, 34-second test of the horizontal prototype with circulating cooling. The team estimated approximately 540 rpm from slow-motion video.</figcaption></figure>
+${fig('revised-prototype.jpg','Revised engine with a flywheel, paired gears, and cooling connections.','The revised prototype combines a rhombic drive, flywheel, and water-cooling system.','figure-medium')}
+<p>Startup testing guided improvements to sealing, gear engagement, shaft support, and flywheel inertia. My modeling work examined how thermal conditions and gas volume could support that mechanical design.</p></section>
+<section id="implementation"><h2>Connect the gas cycle to the mechanism</h2>
+<p>The cycle model related piston phase and chamber volume to gas pressure. In the coupled simulation, ADAMS returned the flywheel angle; a Simulink S-Function used that state to update the pressure-derived force and torque applied to the mechanism.</p>
+${fig('cosimulation-en.png','Simulink force-and-torque calculation coupled to an ADAMS model with angle feedback.','Angle feedback closes the loop between mechanical motion, chamber volumes, and pressure-derived loads.','figure-medium')}
+<p>I reconciled the tools’ units at this interface and examined startup separately from settled operation. Co-simulated rotation settled around <strong>550 rpm</strong>, providing a reference for interpreting the working prototype.</p>
+<h3>Use the model to compare concrete design changes</h3>
+<p>I evaluated cold-side cooling and reduced inactive gas volume separately. Lowering the cold-side temperature sustained a larger temperature difference; reducing dead volume increased the fraction of gas volume contributing to the working cycle. Each comparison kept the baseline explicit so its effect could guide a specific design choice.</p>
+<div class="course-figure-pair">${fig('revised-cad.jpg','CAD view of the revised rhombic-drive layout and flywheel.','Revised mechanical layout developed by the team.')}${fig('vertical-prototype-en.png','A later vertical engine prototype on the workbench.','A later vertical layout addressed piston side loading.','course-portrait')}</div>
 </section>
-
-<section id="question"><h2>Core question: what makes a modeled cycle physically sustainable?</h2>
-<p>The design problem was a coupled one. The gas cycle had to provide useful work, the transmission had to carry it through the full cycle, and the thermal system had to maintain the temperature difference. I used modeling to examine these relationships and to interpret the mismatch between predicted motion and the first physical result.</p>
-</section>
-
-<section id="reasoning"><h2>Reasoning: trace the losses and question the assumptions</h2>
-<h3>Separate the ability to assemble from the ability to sustain motion</h3>
-<p>The failed run made manufacturing details central to the analysis. The team found leakage at piston-cylinder fits, limited shaft and support precision, gear slipping, and insufficient flywheel inertia. A favorable pressure-volume cycle alone could not resolve those problems. The design needed a credible mechanical path from gas pressure to rotation.</p>
-<p>I interpreted the failed run through two questions: was the gas cycle capable of producing work, and could the assembled mechanism carry that work through an entire revolution? Leakage weakens the pressure cycle, while friction, compliance, and misalignment consume or disrupt its mechanical output. A larger predicted cycle area would have limited value if the transmission still bound or slipped.</p>
-<h3>Treat thermal boundary conditions as design variables</h3>
-<p>I also examined the thermal assumptions. As heat conducted through the structure, the cold side warmed, reducing the available temperature difference. Cooling the cold side and reducing inactive gas volume became two model-guided design changes. Their value could be compared in the calculation before interpreting what the complete prototype actually achieved.</p>
-<p>The cycle calculation assumes specified hot- and cold-side temperatures and a sealed working gas. In the prototype, those conditions had to be maintained by the structure, fits, and cooling system. I used the model to ask which physical change would address a violated assumption: preserve the temperature difference, reduce inactive volume, or improve the mechanical drive. This gave the iterations a causal direction.</p>
-<table class="result-table"><caption>How observations changed the design questions</caption><thead><tr><th scope="col">Observation</th><th scope="col">Question and response</th></tr></thead><tbody>
-<tr><th scope="row">Slipping and binding in the first drive</th><td>How sensitive is the mechanism to alignment and compliance? Revisit gear size, shaft support, fits, and flywheel design.</td></tr>
-<tr><th scope="row">The cold side warms during heating</th><td>Can the temperature difference be maintained? Add a water jacket and circulating cooling.</td></tr>
-<tr><th scope="row">Large inactive gas volume</th><td>How much gas volume contributes little to the stroke? Compare a shorter-cylinder configuration in the cycle model.</td></tr>
-</tbody></table>
-</section>
-
-<section id="approach"><h2>Approach: connect thermodynamics, dynamics, and iteration</h2>
-<p>I developed the thermodynamic model and ADAMS–Simulink co-simulation. The cycle model related piston phase and gas volume to pressure. In the coupled simulation, the mechanical system returned the flywheel angle; an S-Function used that state to update the force and torque applied to the mechanism.</p>
-${fig('cosimulation-en.png', 'Simulink diagram coupling a force-and-torque calculation with an ADAMS mechanical model and returning angle feedback.', 'Co-simulation loop: pressure-derived force and torque drive the mechanical model, whose angle feeds the next calculation.','figure-medium')}
-<p>Returning the mechanical angle closed the coupling between motion and the gas calculation: the current position determined chamber volumes and pressure, which updated the loads for the next step. I also had to reconcile units at the interface between the two simulation tools. The startup transient required separate interpretation from the later operating speed because the initial torque influenced the early acceleration.</p>
-<p>The team revised the prototype's gears, flywheel, support parts, and cooling system. A later vertical layout addressed an additional concern about piston side loading. These iterations linked the model to fabrication constraints. The revised mechanical design and later vertical prototype are shown below.</p>
-<div class="course-figure-pair">${fig('revised-cad.jpg', 'CAD view of the revised rhombic-drive engine and its flywheel.', 'Revised mechanical layout with a rhombic drive and flywheel.')}${fig('vertical-prototype-en.png', 'The later vertical engine prototype photographed on a workbench.', 'Later vertical prototype. The running experiment below uses the horizontal configuration.','course-portrait')}</div>
-<h3>My design contribution</h3>
-<p>My contribution was to connect the thermodynamic calculation to the motion model and use that relationship to interpret the team's physical iterations. The cold-side cooling and dead-volume studies tested two different ways to improve the gas cycle; the co-simulation examined how pressure-derived loads produced motion in the mechanism. This made the model useful for choosing and explaining design changes.</p>
-<p>I kept each model comparison tied to a specific change. Combining several modifications at once would make an improved result harder to explain. Comparing cooling and dead volume separately exposed their effects in the calculation, while the physical prototype still had to resolve friction, sealing, and assembly constraints together.</p>
-</section>
-
-<section id="results"><h2>Validation: compare model outcomes with a real running prototype</h2>
-${fig('model-comparison.png', 'Calculated work per cycle of 0.1438 joules for baseline, 0.2325 for colder cold side, and 0.2056 for reduced dead volume.', 'Calculated indicated work per cycle: 0.1438 J at baseline, 0.2325 J with a colder cold side, and 0.2056 J with reduced dead volume. Each modification is compared separately with the baseline; these values describe gas-cycle work rather than measured shaft output. <a href="../../assets/course/stirling-engine/model-comparison.csv">Plot data</a>.')}
-<div class="course-figure-pair">${fig('cooling-pv-en.png', 'Pressure-volume model curves comparing the baseline with improved cooling.', 'Pressure–volume cycles for the baseline and colder cold-side case.')}${fig('dead-volume-pv-en.png', 'Pressure-volume model curves comparing the baseline with reduced dead volume.', 'Pressure–volume cycles for the baseline and reduced dead-volume case.')}</div>
-<p>Co-simulated rotation settled around 550 rpm. The physical prototype reached approximately 540 rpm, estimated by counting rotations in slow-motion video. The similar speeds suggest a useful modeling reference, while the different assumptions and measurement methods limit a direct accuracy claim.</p>
-<p>The calculated work increased by approximately 61.7% for the colder cold-side case and 43.0% for the reduced dead-volume case, each relative to the 0.1438 J baseline. These comparisons supported the direction of the thermal changes. The running prototype answered a separate question: whether the assembled thermal and mechanical system could sustain rotation.</p>
-<figure class="research-figure figure-medium" id="demo"><video controls playsinline preload="none" poster="../../assets/course/stirling-engine/experiment-poster.jpg" aria-label="Original-speed running experiment of the revised Stirling engine"><source src="../../assets/course/stirling-engine/experiment.mp4" type="video/mp4">Your browser does not support embedded video. <a href="../../assets/course/stirling-engine/experiment.mp4">Download the experiment video</a>.</video><figcaption>Original-speed physical experiment, approximately 34 seconds. The recording shows the heated engine rotating with its cooling system in place; audio is omitted.</figcaption></figure>
-<p class="table-note">The prototype sustains rotation in this demonstration. Shaft power and long-duration endurance were not measured.</p>
-</section>
-
-<section id="takeaways"><h2>Takeaways</h2>
-<p>I learned to use a model as a way to expose assumptions and guide the next engineering decision. The strongest progress came from connecting gas-cycle calculations to tolerances, friction, inertia, and thermal management. The experience also made me more careful about what each form of evidence can establish: calculated cycle work, simulated motion, and physical operation answer different questions.</p>
-<p class="table-note">My contributions focused on thermodynamic modeling and co-simulation. Fabrication and prototype iterations were team work.</p>
+<section id="results"><h2>Calculated cycle gains and physical operation</h2>
+${fig('model-comparison.png','Calculated cycle work: baseline 0.1438 J, colder cold side 0.2325 J, reduced dead volume 0.2056 J.','Calculated indicated work per cycle. Relative to the 0.1438 J baseline, colder cold-side conditions give +61.7% and reduced dead volume gives +43.0%, evaluated as separate modifications. <a href="../../assets/course/stirling-engine/model-comparison.csv">Plot data</a>.')}
+<div class="course-figure-pair">${fig('cooling-pv-en.png','Pressure-volume curves for baseline and colder cold-side conditions.','Cooling comparison: pressure–volume cycle from the thermodynamic model.')}${fig('dead-volume-pv-en.png','Pressure-volume curves for baseline and reduced dead volume.','Dead-volume comparison: a separate model study against the same baseline.')}</div>
+<p>The model studies gave the thermal changes a clear direction, while the <strong>approximately 540 rpm video-estimated prototype speed</strong> demonstrated the assembled system in operation. Connecting those results to fits, inertia, and cooling made the model useful to the team’s design process.</p>
 </section></article>${relatedCourses(slug)}`;
 }

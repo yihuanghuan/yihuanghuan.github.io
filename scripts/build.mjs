@@ -1,7 +1,7 @@
 import { mkdir, writeFile, cp, readFile } from 'node:fs/promises';
 import { createHash } from 'node:crypto';
 import { fileURLToPath } from 'node:url';
-import { join, dirname } from 'node:path';
+import { join, dirname, resolve, relative } from 'node:path';
 import { projects, competitionProjects } from '../content/projects.mjs';
 import { lateSwarmBody } from '../content/late-swarm-page.mjs';
 import { uavSwarmBody } from '../content/uav-swarm-page.mjs';
@@ -16,6 +16,7 @@ import { ecgBody } from '../content/ecg-page.mjs';
 // Adapted from https://github.com/jonbarron/jonbarron.github.io
 const root = fileURLToPath(new URL('../', import.meta.url));
 const out = join(root, 'dist');
+const mediaSizes = JSON.parse(await readFile(join(root,'scripts/media-sizes.json'),'utf8'));
 const styleVersion = createHash('sha256').update(await readFile(join(root,'public/styles.css'))).digest('hex').slice(0,10);
 const escape = value => String(value).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const titles = {
@@ -27,37 +28,32 @@ const titles = {
 const external = (label, url) => `<a href="${escape(url)}">${escape(label)}</a>`;
 
 function shell({ title, description, body, prefix = './' }) {
+ const back = prefix === '../../' ? body.match(/class="back-link"[^>]*><a href="([^"]+)">([^<]+)<\/a>/) : null;
+ const returnLink = back ? `<nav class="project-return" aria-label="Return to project listing"><a href="${back[1]}">${back[2]}</a></nav>` : '';
  return `<!DOCTYPE HTML>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="${escape(description)}"><meta name="author" content="Yihuan Huang"><meta name="robots" content="index,follow"><title>${escape(title)}</title><link rel="stylesheet" href="${prefix}template.css"><link rel="stylesheet" href="${prefix}styles.css?v=${styleVersion}"></head>
 <body><a class="skip-link" href="#main">Skip to content</a><main id="main"><table class="page-table" role="presentation"><tbody><tr><td class="page-cell">
-${body}
-<footer><a href="${prefix}">Yihuan Huang</a> · Updated October 2026<br>Template adapted from <a href="https://jonbarron.info/">Jon Barron</a>.</footer>
+${body}${returnLink}
+<footer><a href="${prefix}">Yihuan Huang</a> · Updated Oct 2026<br>Template adapted from <a href="https://jonbarron.info/">Jon Barron</a>.</footer>
 </td></tr></tbody></table></main></body></html>`;
 }
 
 function projectRow(p) {
- const result = p.slug === 'end-effector-stabilization'
-  ? 'On real hardware, compensation settled to final-10-s mean pose errors of 2.31 mm and 0.53° after approximately 10 cm of base motion, estimated from SLAM and encoders.'
-  : p.slug === 'late-swarm'
-  ? 'In Gazebo simulation, all 60 missions met completion criteria with 8–16 UAVs; mean tracking RMSE was 0.085 m.'
-  : p.slug === 'uav-swarm-control'
-  ? 'The project traces the problems found in separate reproductions, the fused controller, and its simulation tests.'
-  : 'Includes physical deployment videos and evaluations of visual preprocessing and goal-conditioned behavior.';
  const status = p.slug === 'late-swarm' ? '<br><span class="submission-status">Submitted to <strong>ICRA 2027</strong></span><span class="review-status"> · Under review</span>' : '';
  const authors = p.slug === 'late-swarm' ? '<div><strong>Yihuan Huang</strong>, Hongwei Chen, Jianxiang Wang, JianYu Kong, Tao Jiang</div>' : '';
- const thumbnail = p.thumbnail ? `<a class="research-thumbnail" href="./projects/${p.slug}/"><img src="./assets/${escape(p.thumbnail)}" alt="${escape(p.imageAlt)}" width="${p.thumbnailWidth || 2266}" height="${p.thumbnailHeight || 1148}" loading="lazy"></a>` : '';
+ const thumbnail = p.thumbnail ? `<a class="research-thumbnail" href="./projects/${p.slug}/"><img src="./assets/${escape(p.thumbnail)}" alt="${escape(p.imageAlt)}" loading="lazy"></a>` : '';
  const extraLinks = p.slug === 'late-swarm' ? ' / <a href="./files/late-swarm.pdf">Paper</a> / <a href="./projects/late-swarm/#demo">Video</a>' : ['nomad-navigation','end-effector-stabilization'].includes(p.slug) ? ` / <a href="./projects/${p.slug}/#demo">Videos</a>` : '';
- return `<tr><td class="research-entry"><div class="${thumbnail?'research-with-image':'research-text'}">${thumbnail}<div><h3 class="papertitle"><a href="./projects/${p.slug}/">${escape(titles[p.slug])}</a></h3>${authors}<div class="entry-meta">${escape(p.organization)} · ${escape(p.period)}${status}</div><div class="entry-links"><a href="./projects/${p.slug}/">Project</a> / ${external('Code',p.links[0].url)}${extraLinks}</div><p>${escape(p.summary)} ${escape(result)}</p></div></div></td></tr>`;
+ return `<tr><td class="research-entry"><div class="${thumbnail?'research-with-image':'research-text'}">${thumbnail}<div><h3 class="papertitle"><a href="./projects/${p.slug}/">${escape(titles[p.slug])}</a></h3>${authors}<div class="entry-meta">${escape(p.organization)} · ${escape(p.period)}${status}</div><div class="entry-links"><a href="./projects/${p.slug}/">Project</a> / ${external('Code',p.links[0].url)}${extraLinks}</div><p>${escape(p.summary)}</p></div></div></td></tr>`;
 }
 
 function home() {
  const body = `<header class="intro" id="about"><h1 class="name">Yihuan Huang <span lang="zh">黄翊桓</span></h1>
-<p>I am an undergraduate student in Robotics Engineering at <a href="https://www.cqu.edu.cn/">Chongqing University</a>, expecting to graduate in June 2027.</p>
+<p>I am an undergraduate student in Robotics Engineering at <a href="https://www.cqu.edu.cn/">Chongqing University</a>, expecting to graduate in Jun 2027.</p>
 <p>I am interested in <strong>robot learning and generalizable manipulation</strong>, particularly vision-language-action policies. My previous work spans language-guided UAV coordination, visual state estimation, and feedback control on physical robots. I was a visiting research student at the WINDY Lab, Westlake University, advised by Prof. Shiyu Zhao.</p>
 <p>I am seeking a master’s program in robotics in the United States for Fall 2027.</p>
 <p class="contact-links"><a href="mailto:20233692@stu.cqu.edu.cn">Email</a> &nbsp;/&nbsp; <a href="./files/yihuan-huang-cv.pdf">CV</a> &nbsp;/&nbsp; <a href="https://github.com/yihuanghuan">GitHub</a></p></header>
+<section id="current-work"><h2>Current Work</h2><p>In Assoc. Prof. Can Pu’s lab, I have reproduced, fine-tuned, and deployed <strong>π0.5</strong> using the lab’s existing workflow and semi-humanoid robot. The deployed policy picks the block color specified in an instruction and places it into a box; further evaluation is in progress.</p></section>
 <section id="research"><h2>Research</h2><table class="research-table" role="presentation"><tbody>${projects.map(projectRow).join('')}</tbody></table></section>
-<section id="current-work"><h2>Current Work</h2><p>In Assoc. Prof. Can Pu’s lab, I am reproducing, fine-tuning, and deploying <strong>π0.5</strong> on a semi-humanoid robot developed by the lab. The fine-tuned policy has been deployed and can demonstrate picking a block of the color specified in an instruction and placing it into a box. My role focuses on model reproduction, fine-tuning, and deployment. Further evaluation is in progress.</p></section>
 <section id="competitions"><h2>Robotics Competitions & Leadership</h2>
 <div class="research-with-image"><a class="research-thumbnail" href="./projects/vex-robotics/"><img src="./assets/vex/thumbnail.jpg" alt="Practice-field testing of a VEX robot at Chongqing University." width="660" height="660" loading="lazy"></a><div>
 <h3 class="papertitle"><a href="./projects/vex-robotics/">${escape(competitionProjects[0].title)}</a></h3>
@@ -67,7 +63,7 @@ function home() {
 <p>2025 VEX Worlds · <strong>Technology Division quarter-finalist</strong> (CQU2).</p>
 </div></div></section>
 <section id="additional-projects"><h2>Other Projects</h2><table class="research-table" role="presentation"><tbody>${courseProjects.map(p => `<tr><td class="research-entry"><div class="research-with-image"><a class="research-thumbnail" href="./projects/${p.slug}/"><img src="./assets/${p.thumbnail}" alt="${escape(p.imageAlt)}" loading="lazy"></a><div><h3 class="papertitle"><a href="./projects/${p.slug}/">${escape(p.title)}</a></h3><div class="entry-meta">${escape(p.course)} · Course project</div><div class="entry-links"><a href="./projects/${p.slug}/">Project</a>${p.slug === 'stirling-engine' ? ` / <a href="./projects/${p.slug}/#demo">Experiment video</a>` : ''}</div><p>${escape(p.summary)}</p></div></div></td></tr>`).join('')}</tbody></table></section>
-<section id="education"><h2>Education</h2><p><strong>Chongqing University</strong>, B.Eng. in Robotics Engineering<br>September 2023–June 2027 (expected)</p></section>
+<section id="education"><h2>Education</h2><p><strong>Chongqing University</strong>, B.Eng. in Robotics Engineering<br>Sep 2023–Jun 2027 (expected)</p></section>
 <section id="experience"><h2>Teaching & Mentoring</h2><ul class="plain-list"><li><strong>Undergraduate Teaching Assistant</strong>, Department of Robotics Engineering<br>Guided more than 90 students through STM32 programming and debugging.</li></ul></section>`;
  return shell({title:'Yihuan Huang',description:'Yihuan Huang, Robotics Engineering undergraduate at Chongqing University. Research interests in robot learning, vision-language-action policies, and generalizable manipulation.',body});
 }
@@ -81,22 +77,31 @@ function detail(p) {
  if (p.slug === 'nomad-navigation') return shell({title:'NoMaD on TITA | Yihuan Huang',description:p.summary,body:nomadBody(),prefix:'../../'});
  if (p.slug === 'uav-swarm-control') return shell({title:'UAV Swarm Control | Yihuan Huang',description:p.summary,body:uavSwarmBody(),prefix:'../../'});
  if (p.slug === 'late-swarm') return shell({title:'LATE-Swarm | Yihuan Huang',description:p.summary,body:lateSwarmBody(),prefix:'../../'});
- const body = `<nav class="back-link"><a href="../../#research">← Back to research</a> &nbsp;/&nbsp; <a href="../../files/yihuan-huang-cv.pdf">CV</a></nav>
-<article class="project-detail"><header><h1>${escape(titles[p.slug])}</h1><p>${escape(p.organization)} · ${escape(p.period)}<br>${escape(p.role)} · Advisor: ${escape(p.advisor)}${p.slug==='late-swarm'?'<br><em>Submitted to ICRA 2027 · Under review</em>':''}</p><p>${p.links.map(l=>external(l.label,l.url)).join(' &nbsp;/&nbsp; ')}</p></header>
-<section><h2>Overview</h2><p>${escape(p.problem)}</p></section>
-<section><h2>My Contributions</h2><ul>${p.contributions.map(c=>`<li>${escape(c)}</li>`).join('')}</ul></section>
-<section><h2>Method</h2><ol>${p.method.map(([label,text])=>`<li><strong>${escape(label)}.</strong> ${escape(text)}</li>`).join('')}</ol></section>
-<section id="results"><h2>Results</h2><ul>${p.results.map(([metric,label])=>`<li><strong>${escape(metric)}</strong> — ${escape(label)}</li>`).join('')}</ul><p>${escape(p.qualifier)}</p></section>
-<section><h2>Discussion</h2><p>${escape(p.reflection)}</p></section>
-<section id="resources"><h2>Code & Context</h2><p>${p.links.map(l=>external(l.label,l.url)).join(' &nbsp;/&nbsp; ')}</p><p>${escape(p.codeNote)}</p></section></article>
-<nav class="related-projects"><h2>Other Research</h2><ul>${projects.filter(x=>x.slug!==p.slug).map(x=>`<li><a href="../${x.slug}/">${escape(titles[x.slug])}</a></li>`).join('')}</ul></nav>`;
- return shell({title:`${titles[p.slug]} | Yihuan Huang`,description:p.summary,body,prefix:'../../'});
+ throw new Error(`No implemented project page for ${p.slug}`);
+}
+
+function preparePage(html, target) {
+ const sizeFor = src => {
+  const key = relative(out,resolve(dirname(target),src)).replaceAll('\\','/');
+  const size = mediaSizes[key];
+  if (!size) throw new Error(`Missing actual media dimensions: ${key}`);
+  return size;
+ };
+ const dimensions = (tag,size) => tag.replace(/\s(?:width|height)="[^"]*"/g,'').replace(/>$/,` width="${size[0]}" height="${size[1]}">`);
+ html = html.replace(/<img\b[^>]*>/g, tag => dimensions(tag,sizeFor(tag.match(/\bsrc="([^"]+)"/)[1])));
+ return html.replace(/<video\b[^>]*>[\s\S]*?<\/video>/g, video => {
+  const src = video.match(/<source\b[^>]*\bsrc="([^"]+)"/)[1];
+  const size = sizeFor(src);
+  const tag = video.match(/^<video\b[^>]*>/)[0];
+  const sized = dimensions(tag,size).replace(/>$/,` style="aspect-ratio:${size[0]} / ${size[1]}">`);
+  return video.replace(tag,sized)+`<p class="video-open"><a href="${src}">Open video</a></p>`;
+ });
 }
 
 await mkdir(out,{recursive:true});
 await cp(join(root,'public'),out,{recursive:true});
-await writeFile(join(out,'index.html'),home());
-for(const project of [...projects,...competitionProjects,...courseProjects]){const target=join(out,'projects',project.slug,'index.html');await mkdir(dirname(target),{recursive:true});await writeFile(target,detail(project));}
+await writeFile(join(out,'index.html'),preparePage(home(),join(out,'index.html')));
+for(const project of [...projects,...competitionProjects,...courseProjects]){const target=join(out,'projects',project.slug,'index.html');await mkdir(dirname(target),{recursive:true});await writeFile(target,preparePage(detail(project),target));}
 await writeFile(join(out,'robots.txt'),'User-agent: *\nAllow: /\nSitemap: https://yihuanghuan.github.io/sitemap.xml\n');
 await writeFile(join(out,'.nojekyll'),'');
 await writeFile(join(out,'sitemap.xml'),`<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">${['',...[...projects,...competitionProjects,...courseProjects].map(p=>'projects/'+p.slug+'/')].map(path=>`<url><loc>https://yihuanghuan.github.io/${path}</loc></url>`).join('')}</urlset>`);

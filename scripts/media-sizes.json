@@ -1,0 +1,410 @@
+{
+  "assets/late-swarm/commitment-results.png": [
+    2070,
+    1260
+  ],
+  "assets/late-swarm/demo-poster.jpg": [
+    1920,
+    1080
+  ],
+  "assets/late-swarm/demo.mp4": [
+    1920,
+    1080
+  ],
+  "assets/late-swarm/framework.png": [
+    1536,
+    696
+  ],
+  "assets/late-swarm/motion-style-results.png": [
+    2070,
+    2250
+  ],
+  "assets/late-swarm/safety-results.png": [
+    2880,
+    1560
+  ],
+  "assets/late-swarm/thumbnail.png": [
+    2266,
+    1148
+  ],
+  "assets/nomad/deployment-pipeline.png": [
+    2200,
+    1260
+  ],
+  "assets/nomad/deployment-pipeline.svg": [
+    760.0,
+    400.0
+  ],
+  "assets/nomad/exploration-offline-poster.jpg": [
+    1280,
+    720
+  ],
+  "assets/nomad/exploration-offline.mp4": [
+    960,
+    540
+  ],
+  "assets/nomad/goal-left.jpg": [
+    1280,
+    480
+  ],
+  "assets/nomad/goal-straight.jpg": [
+    1280,
+    480
+  ],
+  "assets/nomad/physical-trial-stills.jpg": [
+    1560,
+    990
+  ],
+  "assets/nomad/preprocessing-evaluation.png": [
+    1663,
+    683
+  ],
+  "assets/nomad/scene-evaluation.png": [
+    1663,
+    763
+  ],
+  "assets/nomad/scene-original.jpg": [
+    1200,
+    900
+  ],
+  "assets/nomad/thumbnail.jpg": [
+    960,
+    560
+  ],
+  "assets/nomad/tita-external-poster.jpg": [
+    720,
+    1280
+  ],
+  "assets/nomad/tita-external.mp4": [
+    540,
+    960
+  ],
+  "assets/nomad/tita-onboard-poster.jpg": [
+    1280,
+    720
+  ],
+  "assets/nomad/tita-onboard.mp4": [
+    960,
+    540
+  ],
+  "assets/nomad/trial-25s.jpg": [
+    720,
+    1280
+  ],
+  "assets/nomad/trial-45s.jpg": [
+    720,
+    1280
+  ],
+  "assets/nomad/trial-8s.jpg": [
+    720,
+    1280
+  ],
+  "assets/nomad/visual-input-adaptation.png": [
+    1700,
+    740
+  ],
+  "assets/nomad/waypoint-evaluation.png": [
+    1822,
+    663
+  ],
+  "assets/uav-swarm-control/actuator-limits.png": [
+    2250,
+    1650
+  ],
+  "assets/uav-swarm-control/deadlock-comparison.png": [
+    1977,
+    1030
+  ],
+  "assets/uav-swarm-control/formation-errors.png": [
+    1724,
+    1134
+  ],
+  "assets/uav-swarm-control/fusion-demo.mp4": [
+    1920,
+    1080
+  ],
+  "assets/uav-swarm-control/fusion-trajectories.png": [
+    1825,
+    1439
+  ],
+  "assets/uav-swarm-control/ladrc-ablation.png": [
+    3464,
+    1551
+  ],
+  "assets/uav-swarm-control/simulink-model.png": [
+    1899,
+    807
+  ],
+  "assets/vex/field-side.jpg": [
+    1600,
+    1200
+  ],
+  "assets/vex/official-blue-ring.png": [
+    379,
+    318
+  ],
+  "assets/vex/official-high-stakes-field.jpg": [
+    1050,
+    693
+  ],
+  "assets/vex/official-mobile-goal.png": [
+    419,
+    425
+  ],
+  "assets/vex/official-red-ring.png": [
+    385,
+    327
+  ],
+  "assets/vex/practice.jpg": [
+    1200,
+    1600
+  ],
+  "assets/vex/thumbnail.jpg": [
+    660,
+    660
+  ],
+  "assets/vex/worlds-exchange.jpg": [
+    1600,
+    1200
+  ],
+  "assets/vex/worlds-international.jpg": [
+    1600,
+    1200
+  ],
+  "assets/vex/worlds-match-poster.jpg": [
+    960,
+    544
+  ],
+  "assets/vex/worlds-match.mp4": [
+    960,
+    544
+  ],
+  "assets/vex/worlds-team.jpg": [
+    1600,
+    1200
+  ],
+  "assets/vex/worlds-venue.jpg": [
+    1600,
+    1200
+  ],
+  "assets/westlake/hardware.jpg": [
+    1400,
+    1050
+  ],
+  "assets/westlake/horizontal-error.png": [
+    1600,
+    1120
+  ],
+  "assets/westlake/mount-validation.png": [
+    1480,
+    620
+  ],
+  "assets/westlake/paired-demo-poster.jpg": [
+    1488,
+    534
+  ],
+  "assets/westlake/paired-demo.mp4": [
+    1488,
+    534
+  ],
+  "assets/westlake/physical-additional-poster.jpg": [
+    960,
+    540
+  ],
+  "assets/westlake/physical-additional.mp4": [
+    960,
+    540
+  ],
+  "assets/westlake/physical-demo-poster.jpg": [
+    960,
+    540
+  ],
+  "assets/westlake/physical-demo.mp4": [
+    960,
+    540
+  ],
+  "assets/westlake/rviz-demo-poster.jpg": [
+    1280,
+    740
+  ],
+  "assets/westlake/rviz-demo.mp4": [
+    1280,
+    740
+  ],
+  "assets/westlake/three-d-error.png": [
+    1600,
+    1120
+  ],
+  "assets/westlake/thumbnail.jpg": [
+    720,
+    480
+  ],
+  "assets/westlake/trajectory-detail.jpg": [
+    540,
+    410
+  ],
+  "assets/westlake/trial-before.jpg": [
+    480,
+    650
+  ],
+  "assets/westlake/trial-during.jpg": [
+    480,
+    650
+  ],
+  "assets/westlake/trial-sequence.jpg": [
+    1500,
+    790
+  ],
+  "assets/westlake/trial-settled.jpg": [
+    480,
+    650
+  ],
+  "assets/westlake/with-prof-zhao.jpg": [
+    750,
+    563
+  ],
+  "assets/course/ecg-signal-processing/amplitude-test-en.png": [
+    975,
+    1300
+  ],
+  "assets/course/ecg-signal-processing/amplitude-test.jpg": [
+    975,
+    1300
+  ],
+  "assets/course/ecg-signal-processing/electrode-test-en.png": [
+    1500,
+    1125
+  ],
+  "assets/course/ecg-signal-processing/electrode-test.jpg": [
+    1500,
+    1125
+  ],
+  "assets/course/ecg-signal-processing/filtered-waveform-en.png": [
+    835,
+    666
+  ],
+  "assets/course/ecg-signal-processing/filtered-waveform.jpg": [
+    835,
+    666
+  ],
+  "assets/course/ecg-signal-processing/raw-waveform-en.png": [
+    829,
+    670
+  ],
+  "assets/course/ecg-signal-processing/raw-waveform.jpg": [
+    829,
+    670
+  ],
+  "assets/course/ecg-signal-processing/simulator-test-en.png": [
+    1500,
+    1125
+  ],
+  "assets/course/ecg-signal-processing/simulator-test.jpg": [
+    1500,
+    1125
+  ],
+  "assets/course/ecg-signal-processing/spectrum-comparison-en.png": [
+    829,
+    664
+  ],
+  "assets/course/ecg-signal-processing/spectrum-comparison.jpg": [
+    829,
+    664
+  ],
+  "assets/course/ecg-signal-processing/thumbnail.jpg": [
+    720,
+    540
+  ],
+  "assets/course/mobile-manipulator/course-layout-en.png": [
+    1930,
+    815
+  ],
+  "assets/course/mobile-manipulator/kinematic-sketch-en.png": [
+    1500,
+    752
+  ],
+  "assets/course/mobile-manipulator/kinematic-sketch.jpg": [
+    1500,
+    752
+  ],
+  "assets/course/mobile-manipulator/robot-course.jpg": [
+    1000,
+    2118
+  ],
+  "assets/course/mobile-manipulator/robot-platform.jpeg": [
+    343,
+    229
+  ],
+  "assets/course/mobile-manipulator/thumbnail.jpg": [
+    343,
+    229
+  ],
+  "assets/course/mobile-manipulator/writing-result.jpeg": [
+    1440,
+    1920
+  ],
+  "assets/course/mobile-manipulator/writing-sequences.png": [
+    1980,
+    630
+  ],
+  "assets/course/stirling-engine/cooling-pv-en.png": [
+    1012,
+    811
+  ],
+  "assets/course/stirling-engine/cooling-pv.jpg": [
+    1012,
+    811
+  ],
+  "assets/course/stirling-engine/cosimulation-en.png": [
+    1500,
+    740
+  ],
+  "assets/course/stirling-engine/cosimulation.jpg": [
+    1500,
+    740
+  ],
+  "assets/course/stirling-engine/dead-volume-pv-en.png": [
+    889,
+    722
+  ],
+  "assets/course/stirling-engine/dead-volume-pv.jpg": [
+    889,
+    722
+  ],
+  "assets/course/stirling-engine/experiment-poster.jpg": [
+    960,
+    540
+  ],
+  "assets/course/stirling-engine/experiment.mp4": [
+    960,
+    540
+  ],
+  "assets/course/stirling-engine/first-prototype.jpg": [
+    960,
+    540
+  ],
+  "assets/course/stirling-engine/model-comparison.png": [
+    1566,
+    666
+  ],
+  "assets/course/stirling-engine/revised-cad.jpg": [
+    1003,
+    762
+  ],
+  "assets/course/stirling-engine/revised-prototype.jpg": [
+    1500,
+    1125
+  ],
+  "assets/course/stirling-engine/thumbnail.jpg": [
+    693,
+    520
+  ],
+  "assets/course/stirling-engine/vertical-prototype-en.png": [
+    975,
+    950
+  ],
+  "assets/course/stirling-engine/vertical-prototype.jpg": [
+    975,
+    1300
+  ]
+}

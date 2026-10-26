@@ -23,10 +23,11 @@ for(const path of pages){
   let target=pathname?resolve(dirname(path),decodeURIComponent(pathname)):path;
   try{if((await stat(target)).isDirectory())target=join(target,'index.html');await stat(target);checked++;if(anchor&&target.endsWith('.html')){const other=await readFile(target,'utf8');if(!other.includes(`id="${anchor}"`))errors.push(`${path}: missing anchor ${href}`);}}catch{errors.push(`${path}: missing resource ${href}`);}
  }
- for(const m of html.matchAll(/<img\b[^>]*>/g)){if(!/\balt="[^"]+"/.test(m[0]))errors.push(`${path}: image without alt`);}
+ for(const m of html.matchAll(/<img\b[^>]*>/g)){if(!/\balt="[^"]+"/.test(m[0]))errors.push(`${path}: image without alt`);if(!/width="[0-9.]+"/.test(m[0])||!/height="[0-9.]+"/.test(m[0]))errors.push(`${path}: missing image dimensions`);}
  for(const m of html.matchAll(/<video\b[^>]*>/g)){
   if(!/\bcontrols\b/.test(m[0])||/\bautoplay\b/.test(m[0]))errors.push(`${path}: video must have controls and remain paused`);
   if(!/preload="none"/.test(m[0]))errors.push(`${path}: video should not preload the recording`);
+  if(!/width="[0-9.]+"/.test(m[0])||!/height="[0-9.]+"/.test(m[0]))errors.push(`${path}: missing video dimensions`);
  }
  if(/href="#"|TODO|placeholder|TBD/.test(html))errors.push(`${path}: unfinished public content`);
 }
