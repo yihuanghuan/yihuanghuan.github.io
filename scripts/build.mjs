@@ -81,6 +81,12 @@ function detail(p) {
 }
 
 function preparePage(html, target) {
+ const detailedFigures = new Set([
+  'assets/late-swarm/framework.png', 'assets/late-swarm/commitment-results.png',
+  'assets/westlake/mount-validation.png', 'assets/nomad/preprocessing-evaluation.png',
+  'assets/nomad/deployment-pipeline.png', 'assets/course/stirling-engine/model-comparison.png',
+  'assets/course/stirling-engine/cosimulation-en.png'
+ ]);
  const sizeFor = src => {
   const key = relative(out,resolve(dirname(target),src)).replaceAll('\\','/');
   const size = mediaSizes[key];
@@ -89,12 +95,18 @@ function preparePage(html, target) {
  };
  const dimensions = (tag,size) => tag.replace(/\s(?:width|height)="[^"]*"/g,'').replace(/>$/,` width="${size[0]}" height="${size[1]}">`);
  html = html.replace(/<img\b[^>]*>/g, tag => dimensions(tag,sizeFor(tag.match(/\bsrc="([^"]+)"/)[1])));
- return html.replace(/<video\b[^>]*>[\s\S]*?<\/video>/g, video => {
+ html = html.replace(/<video\b[^>]*>[\s\S]*?<\/video>/g, video => {
   const src = video.match(/<source\b[^>]*\bsrc="([^"]+)"/)[1];
   const size = sizeFor(src);
   const tag = video.match(/^<video\b[^>]*>/)[0];
   const sized = dimensions(tag,size).replace(/>$/,` style="aspect-ratio:${size[0]} / ${size[1]}">`);
   return video.replace(tag,sized)+`<p class="video-open"><a href="${src}">Open video</a></p>`;
+ });
+ return html.replace(/<figure\b[^>]*>[\s\S]*?<\/figure>/g, figure => {
+  const image = figure.match(/<img\b[^>]*\bsrc="([^"]+)"/);
+  if (!image) return figure;
+  const key = relative(out,resolve(dirname(target),image[1])).replaceAll('\\','/');
+  return detailedFigures.has(key) ? figure.replace('</figure>',`<p class="figure-open"><a href="${image[1]}">View full-size figure</a></p></figure>`) : figure;
  });
 }
 

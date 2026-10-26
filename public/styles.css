@@ -51,6 +51,8 @@ a:hover,a:focus{color:#924b00;text-decoration:underline}
 .research-figure figcaption a,.research-figure figcaption strong,.research-figure figcaption span,.table-note a,.table-note strong,.table-note span,.result-table caption a,.result-table caption strong,.result-table caption span{font-size:inherit}
 .video-open{font-size:12px;margin:8px 0!important}
 .video-open a{font-size:inherit}
+.figure-open{font-size:12px;margin:6px 0 0!important}
+.figure-open a{font-size:inherit}
 .project-return{margin-top:28px;padding-top:16px;border-top:1px solid #ddd}
 .project-detail .project-abstract{margin:22px 0}
 .result-table{width:100%;border-collapse:collapse;margin:18px 0}
@@ -127,3 +129,9 @@ a:hover,a:focus{color:#924b00;text-decoration:underline}
 .course-detail .result-table th[scope="row"]{width:27%;overflow-wrap:normal}
 @media(max-width:600px){.course-figure-pair{grid-template-columns:1fr;gap:20px}.course-figure-pair .research-figure{max-width:440px;margin-inline:auto;width:100%}.course-process{grid-template-columns:1fr;gap:12px}.course-detail h2{font-size:20px}.course-figure-pair img{max-height:400px}}
 @media(max-width:390px){.page-cell{padding:16px}.arm-results th,.arm-results td{padding:7px 4px;font-size:12px;overflow-wrap:anywhere}.course-detail .result-table th[scope="row"]{width:32%;overflow-wrap:normal}.nomad-detail .result-table th{width:36%}}
+@media(max-width:600px){
+ .project-detail{font-size:15px}
+ .project-detail :is(p,li,ol,ul,a,strong,span,em){font-size:inherit}
+ .project-detail figcaption,.project-detail .table-note,.project-detail .figure-open,.project-detail .video-open{font-size:13px}
+ .project-detail .result-table :is(a,strong,span,em){font-size:inherit}
+}
