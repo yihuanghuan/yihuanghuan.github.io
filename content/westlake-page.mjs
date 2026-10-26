@@ -58,6 +58,7 @@ ${figure('trajectory-detail.jpg','Cropped RViz frame with the cyan end-effector 
 <tr><th scope="row">Manual 3D translation and small rotations</th><td>216.68 s</td><td><strong>1.10 mm / 0.878°</strong></td></tr>
 </tbody></table></div>
 <p class="table-note">Final-10-s mean pose errors estimated from SLAM and joint encoders during real-arm base-disturbance tests.</p>
+${figure('horizontal-error.png','Estimated end-effector Cartesian position-error components and RPY orientation-error components over the complete horizontal base-disturbance trial.','Estimated end-effector error during the ≈10 cm horizontal base-displacement trial: Cartesian position components (top, m) and RPY components of the orientation-error rotation (bottom, degrees). The response settles after the disturbance. The table reports final-10-s means, with orientation magnitude computed from the SO(3) rotation vector.','figure-medium')}
 ${video('physical-additional','Physical robot · additional disturbance trial','Manual base motion and the arm’s compensating response, recorded from an external camera.')}
 <p><strong>What this work established:</strong> a world-frame end-effector feedback loop that respects the actual sensor mounting, separates self-motion from external motion, and drives compensating joint motion on real hardware.</p>
 </section>
