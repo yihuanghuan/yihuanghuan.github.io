@@ -1,12 +1,12 @@
-import { courseNav, figure, sectionLinks, relatedCourses } from './course-projects.mjs';
+import { courseNav, figure, sectionLinks, relatedCourses, courseMetadata } from './course-projects.mjs';
 const slug = 'stirling-engine';
 const fig = (file, alt, caption, cls) => figure(slug, file, alt, caption, cls);
-export function stirlingEngineBody() {
+export function stirlingEngineBody(project) {
  return `${courseNav()}<article class="project-detail course-detail">
-<header><h1>Model-Guided Design<br>of a Running Stirling Engine</h1>
-<p>Engineering Design · Chongqing University<br>Team course project · β-type Stirling engine with a rhombic drive</p>
+<header><h1>${project.title}</h1>
+${courseMetadata(project)}
 <p>I developed the thermodynamic model and ADAMS–Simulink co-simulation, connecting calculated cycle behavior to the team’s prototype iterations.</p>
-${sectionLinks([['demo','Experiment'],['implementation','Model & design'],['results','Results']])}</header>
+${sectionLinks([['demo','Demo'],['results','Results'],['implementation','Implementation']])}</header>
 <section id="demo"><h2>A working thermal–mechanical prototype</h2>
 <figure class="research-figure figure-medium"><video controls playsinline preload="none" poster="../../assets/course/stirling-engine/experiment-poster.jpg" aria-label="Running experiment of the revised Stirling engine"><source src="../../assets/course/stirling-engine/experiment.mp4" type="video/mp4">Your browser does not support embedded video.</video><figcaption>Original-speed, 34-second test of the horizontal prototype with circulating cooling. The team estimated approximately 540 rpm from slow-motion video.</figcaption></figure>
 ${fig('revised-prototype.jpg','Revised engine with a flywheel, paired gears, and cooling connections.','The revised prototype combines a rhombic drive, flywheel, and water-cooling system.','figure-medium')}

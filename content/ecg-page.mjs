@@ -1,12 +1,12 @@
-import { courseNav, figure, sectionLinks, relatedCourses } from './course-projects.mjs';
+import { courseNav, figure, sectionLinks, relatedCourses, courseMetadata } from './course-projects.mjs';
 const slug = 'ecg-signal-processing';
 const fig = (file, alt, caption, cls) => figure(slug, file, alt, caption, cls);
-export function ecgBody() {
+export function ecgBody(project) {
  return `${courseNav()}<article class="project-detail course-detail">
-<header><h1>Embedded ECG Acquisition<br>and Signal Processing</h1>
-<p>Quantitative Engineering Analysis II · Chongqing University<br>Course project · STM32 acquisition, filtering, and display</p>
+<header><h1>${project.title}</h1>
+${courseMetadata(project)}
 <p>I integrated signal analysis, digital filtering, heart-rate estimation, and waveform visualization using an ADS1292R module, STM32 board, and existing acquisition/DSP libraries.</p>
-${sectionLinks([['demo','System demo'],['implementation','Signal processing'],['results','Simulator results']])}</header>
+${sectionLinks([['demo','Demo'],['results','Results'],['implementation','Implementation']])}</header>
 <section id="demo"><h2>From sampled signal to a live display</h2>
 ${fig('simulator-test-en.png','STM32 and TFT showing an ECG waveform during a simulator test.','The acquisition and display system under simulator testing. HR shows heart rate in BPM.','figure-medium')}
 <p>The system acquires samples over SPI, decodes signed ADC values, filters the stream, estimates heart rate from repeated peaks, and updates the TFT waveform and spectrum. Simulator tests gave <strong>heart-rate error within 2 BPM</strong> for the tested inputs.</p></section>

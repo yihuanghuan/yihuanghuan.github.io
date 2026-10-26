@@ -1,12 +1,12 @@
-import { courseNav, figure, sectionLinks, relatedCourses } from './course-projects.mjs';
+import { courseNav, figure, sectionLinks, relatedCourses, courseMetadata } from './course-projects.mjs';
 const slug = 'mobile-manipulator';
 const fig = (file, alt, caption, cls) => figure(slug, file, alt, caption, cls);
-export function mobileManipulatorBody() {
+export function mobileManipulatorBody(project) {
  return `${courseNav()}<article class="project-detail course-detail">
-<header><h1>Color-Conditioned Writing<br>on a Mobile Manipulator</h1>
-<p>Robotics Fundamentals · Chongqing University<br>Team course project · Sep 2024–Jan 2025</p>
+<header><h1>${project.title}</h1>
+${courseMetadata(project)}
 <p>I implemented the character-writing programs and contributed visual corner detection and line-following PID tuning for a team-built robot.</p>
-${sectionLinks([['demo','Robot & writing'],['implementation','Implementation'],['results','Results']])}</header>
+${sectionLinks([['demo','Demo'],['results','Results'],['implementation','Implementation']])}</header>
 <section id="demo"><h2>From a color observation to a written character</h2>
 <p>Our robot followed a marked route, collected three colored blocks, delivered them to matching stations, and wrote a character selected by the final block’s color. I connected that saved task state to calibrated arm-motion sequences for “二” (two horizontal strokes), “十” (a cross), and “T”.</p>
 <div class="course-figure-pair">${fig('robot-platform.jpeg','The team-built mobile robot with an articulated arm and gripper.','The mobile manipulation platform: OpenMV vision, Arduino control, a wheeled base, and an articulated arm.')}${fig('writing-result.jpeg','The arm holds a marker at the writing surface with a completed character visible.','Physical writing test with the programmed character visible above the tool.','course-portrait')}</div>

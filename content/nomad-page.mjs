@@ -1,14 +1,15 @@
+import { researchMetadata } from './projects.mjs';
 const asset = '../../assets/nomad/';
 const code = 'https://github.com/yihuanghuan/NoMaD';
 const figure = (file, alt, caption, cls='') => `<figure class="research-figure ${cls}"><a href="${asset}${file}"><img src="${asset}${file}" alt="${alt}" loading="lazy"></a><figcaption>${caption}</figcaption></figure>`;
 const video = (file, label, caption, cls='') => `<figure class="research-figure ${cls}"><h3>${label}</h3><video controls playsinline preload="none" poster="${asset}${file}-poster.jpg" aria-label="${label}"><source src="${asset}${file}.mp4" type="video/mp4">Your browser does not support embedded video. <a href="${asset}${file}.mp4">Download video</a>.</video><figcaption>${caption}</figcaption></figure>`;
 
-export function nomadBody() {
- return `<nav class="back-link"><a href="../../#research">← Back to research</a> &nbsp;/&nbsp; <a href="../../files/yihuan-huang-cv.pdf">CV</a></nav>
+export function nomadBody(project) {
+ return `<nav class="back-link"><a href="../../#research">← Back to Research</a> &nbsp;/&nbsp; <a href="../../files/yihuan-huang-cv.pdf">CV</a></nav>
 <article class="project-detail nomad-detail">
-<header><h1>Adapting NoMaD for Interactive<br>Navigation on TITA</h1>
-<p>Chongqing University · Oct 2025–May 2026<br>Core Developer · Advisor: Assoc. Prof. Can Pu</p>
-<p><a href="#demo">TITA demos</a> &nbsp;/&nbsp; <a href="#results">Results</a> &nbsp;/&nbsp; <a href="${code}">Code</a> &nbsp;/&nbsp; <a href="https://general-navigation-models.github.io/nomad/index.html">Original NoMaD project</a></p></header>
+<header><h1>${project.title}</h1>
+${researchMetadata(project)}
+<p><a href="#demo">Demo</a> &nbsp;/&nbsp; <a href="#results">Results</a> &nbsp;/&nbsp; <a href="${code}">Code</a> &nbsp;/&nbsp; <a href="https://general-navigation-models.github.io/nomad/index.html">Original NoMaD project</a></p></header>
 <p class="project-abstract">I extended a pretrained NoMaD navigation policy with camera-aware visual preprocessing and an interactive inference workflow, then integrated it into a closed-loop navigation system on TITA. My work connects three parts of deployment: preserving useful visual cues, changing goals while maintaining observation history, and turning predicted waypoints into physical robot motion.</p>
 <p><strong>My contributions:</strong> <a href="#visual-adaptation">visual input adaptation</a> · <a href="#goal-tests">interactive goal handling</a> · <a href="#deployment">real-robot integration and testing</a></p>
 
@@ -54,7 +55,7 @@ ${figure('scene-evaluation.png','Reported offline trajectory success by scene: s
 
 </section>
 
-<section id="results"><h2>Results and takeaways</h2>
+<section id="results"><h2>Results</h2>
 <ul><li><strong>A working physical deployment.</strong> The camera-to-policy-to-motion pipeline runs on TITA, with external and camera-view recordings documenting the indoor demonstration.</li>
 <li><strong>Visible goal-conditioned behavior.</strong> Paired image tests show how changing the goal changes the waypoint direction, while the goal-masked sequence demonstrates continuous exploration predictions.</li>
 <li><strong>Task-specific adaptations with visible evidence.</strong> The preprocessing comparison and goal-switching tests connect my implementation changes to measurable and observable effects.</li></ul>

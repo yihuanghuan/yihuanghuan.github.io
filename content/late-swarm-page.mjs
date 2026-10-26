@@ -1,10 +1,12 @@
-export function lateSwarmBody() {
+import { researchMetadata } from './projects.mjs';
+export function lateSwarmBody(project) {
  const assets = '../../assets/late-swarm/';
  const figure = (file,alt,caption,cls='') => `<figure class="research-figure ${cls}"><a href="${assets}${file}"><img src="${assets}${file}" alt="${alt}" loading="lazy"></a><figcaption>${caption}</figcaption></figure>`;
  return `<nav class="back-link"><a href="../../#research">← Back to Research</a> &nbsp;/&nbsp; <a href="../../files/yihuan-huang-cv.pdf">CV</a></nav>
 <article class="project-detail late-swarm-page">
-<header><h1>LATE-Swarm: Late-Bound Semantic-to-Physical Commitment for Natural-Language UAV Swarm Reconfiguration</h1>
-<p><strong>Yihuan Huang</strong>, Hongwei Chen, Jianxiang Wang, JianYu Kong, Tao Jiang<br>Chongqing University · Mar–Sep 2026<br><em>Submitted to ICRA 2027 · Under review</em></p>
+<header><h1>${project.title}</h1>
+${researchMetadata(project)}
+<p><strong>Yihuan Huang</strong>, Hongwei Chen, Jianxiang Wang, JianYu Kong, Tao Jiang<br><em>Submitted to ICRA 2027 · Under review</em></p>
 <p><a href="#demo">Demo</a> &nbsp;/&nbsp; <a href="#results">Results</a> &nbsp;/&nbsp; <a href="../../files/late-swarm.pdf">Paper</a> &nbsp;/&nbsp; <a href="https://github.com/yihuanghuan/LLM-UAVswarm-performance">Code</a></p></header>
 <p class="project-abstract">I designed and implemented a language-to-control framework that resolves formation geometry, UAV assignment, and execution timing as the required physical information becomes available. In Gazebo, the framework completed <strong>60/60 missions with 8–16 UAVs</strong>, achieving 0.085 m mean tracking RMSE.</p>
 <section id="demo"><h2>Coordinated missions from language</h2>
@@ -27,7 +29,7 @@ ${figure('commitment-results.png','State-shift comparison: early commitment has 
 <p>A separate campaign covered simple, under-specified, and compositional missions at 8, 12, and 16 UAVs.</p>
 <ul><li><strong>60/60</strong> prospectively feasible attempts met the completion criterion.</li><li><strong>0.085 m</strong> overall mean tracking RMSE.</li><li><strong>Minimum separation above 1.5 m</strong> in every execution of this campaign.</li></ul>
 <p>The work connected a language representation to the information dependencies of physical execution. That design principle guided the interface between interpretation, planning, and closed-loop control.</p></section>
-<section id="resources"><h2>Paper and implementation</h2><p><a href="../../files/late-swarm.pdf">Manuscript · ICRA 2027 under review</a> &nbsp;/&nbsp; <a href="https://github.com/yihuanghuan/LLM-UAVswarm-performance">Repository</a></p>
+<section id="resources"><h2>Paper and implementation</h2><p><i>LATE-Swarm: Late-Bound Semantic-to-Physical Commitment for Natural-Language UAV Swarm Reconfiguration</i></p><p><a href="../../files/late-swarm.pdf">Manuscript · ICRA 2027 under review</a> &nbsp;/&nbsp; <a href="https://github.com/yihuanghuan/LLM-UAVswarm-performance">Repository</a></p>
 <p>Fixed releases: <a href="https://github.com/yihuanghuan/LLM-UAVswarm-performance/tree/late-swarm-core-v1.0">core implementation</a> &nbsp;/&nbsp; <a href="https://github.com/yihuanghuan/LLM-UAVswarm-performance/tree/late-swarm-paper-repro-v1.0">paper reproduction</a> &nbsp;/&nbsp; <a href="https://github.com/yihuanghuan/LLM-UAVswarm-performance/tree/late-swarm-paper-results-v1.0">processed results</a>.</p></section>
 </article>`;
 }

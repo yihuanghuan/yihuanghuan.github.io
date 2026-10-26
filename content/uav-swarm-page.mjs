@@ -1,14 +1,15 @@
+import { researchMetadata } from './projects.mjs';
 const assets = '../../assets/uav-swarm-control/';
 const repo = 'https://github.com/yihuanghuan/Distributed-Multi-UAV-Formation-and-Obstacle-Avoidance-System';
 const report = path => `${repo}/blob/main/Report/${path}`;
 const figure = (file, alt, caption, compact = false) => `<figure class="research-figure${compact ? ' figure-medium' : ''}"><a href="${assets}${file}"><img src="${assets}${file}" alt="${alt}" loading="lazy"></a><figcaption>${caption}</figcaption></figure>`;
 
-export function uavSwarmBody() {
- return `<nav class="back-link"><a href="../../#research">← Back to research</a> &nbsp;/&nbsp; <a href="../../files/yihuan-huang-cv.pdf">CV</a></nav>
+export function uavSwarmBody(project) {
+ return `<nav class="back-link"><a href="../../#research">← Back to Research</a> &nbsp;/&nbsp; <a href="../../files/yihuan-huang-cv.pdf">CV</a></nav>
 <article class="project-detail">
-<header><h1>Distributed UAV Swarm Formation<br>and Obstacle Avoidance</h1>
-<p>Chongqing University · Sep 2025–May 2026<br>Core Developer · Advisor: Prof. Tao Jiang</p>
-<p><a href="${repo}">ROS 2 implementation</a> &nbsp;/&nbsp; <a href="https://github.com/yihuanghuan/distributed-uav-swarm">Simulink implementation</a> &nbsp;/&nbsp; <a href="#demo">Demo</a> &nbsp;/&nbsp; <a href="#results">Results</a></p></header>
+<header><h1>${project.title}</h1>
+${researchMetadata(project)}
+<p><a href="#demo">Demo</a> &nbsp;/&nbsp; <a href="#results">Results</a> &nbsp;/&nbsp; <a href="${repo}">ROS 2 implementation</a> &nbsp;/&nbsp; <a href="https://github.com/yihuanghuan/distributed-uav-swarm">Simulink implementation</a></p></header>
 <p class="project-abstract">I integrated distributed formation tracking with local obstacle avoidance in Simulink and ROS 2/PX4 SITL. The system combines neighbor-based acceleration estimation, role-specific avoidance, and bounded formation feedback; a Gazebo wall-escape test finished about 0.4 m from the goal.</p>
 
 <section id="demo"><h2>Formation and avoidance in simulation</h2>
@@ -36,7 +37,7 @@ ${figure('simulink-model.png', 'Simulink model connecting leader and follower co
 ${figure('deadlock-comparison.png', 'Leader trajectories with and without rotating escape force in the collinear wall experiment.', 'Gazebo collinear-wall comparison. The rotating-force variant with direction locking bypasses the wall and finishes about 0.4 m from the goal in this leader-trajectory comparison. <a href="'+report('deadlock_ablation/deadlock_ablation_report.md')+'">Experiment report and data</a>.')}
 </section>
 
-<section id="results"><h2>Experimental Results and Conclusions</h2>
+<section id="results"><h2>Results</h2>
 <ul><li><strong>Formation recovery after obstacle avoidance.</strong> In the recorded 80 s Simulink experiment, one leader and four followers navigated around spherical obstacles, and follower slot errors settled back near zero after the avoidance maneuvers. The run demonstrates how acceleration feedforward, formation feedback, and local repulsion work together to restore the desired formation.</li>
 <li><strong>Successful escape from the collinear wall trap.</strong> In the Gazebo comparison, the rotating escape force with direction locking enabled the leader to bypass the wall and finish about 0.4 m from the goal. The baseline remained in front of the wall. This experiment supports maintaining a consistent escape direction during the maneuver.</li>
 </ul>

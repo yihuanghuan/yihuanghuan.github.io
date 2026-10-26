@@ -1,12 +1,12 @@
 const asset = '../../assets/vex/';
 const figure = (file, alt, caption, cls='') => `<figure class="research-figure ${cls}"><a href="${asset}${file}"><img src="${asset}${file}" alt="${alt}" loading="lazy"></a><figcaption>${caption}</figcaption></figure>`;
 
-export function vexBody() {
- return `<nav class="back-link"><a href="../../#competitions">← Back to competitions & leadership</a> &nbsp;/&nbsp; <a href="../../files/yihuan-huang-cv.pdf">CV</a></nav>
+export function vexBody(project) {
+ return `<nav class="back-link"><a href="../../#competitions">← Back to Robotics Competitions &amp; Leadership</a> &nbsp;/&nbsp; <a href="../../files/yihuan-huang-cv.pdf">CV</a></nav>
 <article class="project-detail vex-detail">
-<header><h1>VEX Robotics:<br>From the Practice Field to Worlds</h1>
+<header><h1>${project.title}</h1>
 <p>Chongqing University · 2024–2025 High Stakes season<br>Deputy Lead, Control Systems Group</p>
-<p><a href="#season">The season</a> &nbsp;/&nbsp; <a href="#ring-sorting">Engineering</a> &nbsp;/&nbsp; <a href="#demo">Demo & results</a> &nbsp;/&nbsp; <a href="#leadership">Teamwork & mentoring</a> &nbsp;/&nbsp; <a href="#community">Community & Worlds</a></p></header>
+<p><a href="#demo">Demo</a> &nbsp;/&nbsp; <a href="#results">Results</a> &nbsp;/&nbsp; <a href="#resources">Project notes</a> &nbsp;/&nbsp; <a href="#season">The season</a> &nbsp;/&nbsp; <a href="#ring-sorting">Engineering</a> &nbsp;/&nbsp; <a href="#leadership">Teamwork &amp; mentoring</a> &nbsp;/&nbsp; <a href="#community">Community &amp; Worlds</a></p></header>
 <p class="project-abstract">At Chongqing University, I designed and programmed an inertia-based ring sorter that completed eight official matches without a sorting failure. As deputy control-group lead, I mentored five new members and joined CQU2 at the 2025 VEX Worlds, reaching the Technology Division quarter-finals.</p>
 
 <section id="season"><h2>The competition: High Stakes</h2>
@@ -45,7 +45,7 @@ ${figure('field-side.jpg','Teams and their robots beside a VEX competition field
 <figure class="research-figure figure-medium"><h3>2025 VEX Worlds · Technology Division</h3>
 <video controls playsinline preload="none" poster="${asset}worlds-match-poster.jpg" aria-label="2025 VEX Worlds qualification match featuring CQU2"><source src="${asset}worlds-match.mp4" type="video/mp4">Your browser does not support embedded video. <a href="${asset}worlds-match.mp4">Download recording</a>.</video>
 <figcaption>Qualification-match footage from the Technology Division at the 2025 VEX Robotics World Championship. CQU2 is on the blue alliance. The supplied recording is shown at its original playback speed.</figcaption></figure>
-<ul class="plain-list vex-results">
+<ul class="plain-list vex-results" id="results">
 <li><strong>2025 VEX Worlds · CQU2</strong><br>Technology Division quarter-finalist — top eight in the division.</li>
 <li><strong>2024–2025 national elite competition / China Worlds qualifier · CQU1</strong><br>Second Prize · <a href="../../files/vex-cqu1-second-prize.pdf">Team certificate</a></li>
 </ul>

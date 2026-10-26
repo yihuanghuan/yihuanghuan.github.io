@@ -1,15 +1,16 @@
+import { researchMetadata } from './projects.mjs';
 const asset = '../../assets/westlake/';
 const branch = 'https://github.com/yihuanghuan/windy-arm/tree/agent/link6-velocity-feedforward';
 const report = 'https://github.com/yihuanghuan/windy-arm/blob/agent/link6-velocity-feedforward/docs/camera_world_hold/';
 const figure = (file, alt, caption, cls='') => `<figure class="research-figure ${cls}"><a href="${asset}${file}"><img src="${asset}${file}" alt="${alt}" loading="lazy"></a><figcaption>${caption}</figcaption></figure>`;
 const video = (file, label, caption) => `<figure class="research-figure"><h3>${label}</h3><video controls playsinline preload="none" poster="${asset}${file}-poster.jpg" aria-label="${label}"><source src="${asset}${file}.mp4" type="video/mp4">Your browser does not support embedded video. <a href="${asset}${file}.mp4">Download video</a>.</video><figcaption>${caption}</figcaption></figure>`;
 
-export function westlakeBody() {
- return `<nav class="back-link"><a href="../../#research">← Back to research</a> &nbsp;/&nbsp; <a href="../../files/yihuan-huang-cv.pdf">CV</a></nav>
+export function westlakeBody(project) {
+ return `<nav class="back-link"><a href="../../#research">← Back to Research</a> &nbsp;/&nbsp; <a href="../../files/yihuan-huang-cv.pdf">CV</a></nav>
 <article class="project-detail westlake-detail">
-<header><h1>Keeping an End Effector Steady<br>on a Moving Base</h1>
-<p>WINDY Lab, Westlake University · Jul–Oct 2026<br>Visiting Research Student · Advisor: Prof. Shiyu Zhao</p>
-<p><a href="${branch}">Control code</a> &nbsp;/&nbsp; <a href="#demo">Real-robot videos</a> &nbsp;/&nbsp; <a href="#results">Experimental results</a></p></header>
+<header><h1>${project.title}</h1>
+${researchMetadata(project)}
+<p><a href="#demo">Demo</a> &nbsp;/&nbsp; <a href="#results">Results</a> &nbsp;/&nbsp; <a href="${branch}">Code</a></p></header>
 <p class="project-abstract">On WINDY Lab’s aerial-manipulation platform, I developed visual feedback and control integration to keep an arm’s end effector steady as its base moves. Real-arm tests settled to final-10-s mean pose errors of <strong>2.31 mm / 0.53°</strong> after approximately 10 cm of horizontal base displacement.</p>
 <p>Two findings shaped my solution: identifying the rigid body that carries the camera, and separating external disturbance from joint-induced camera motion.</p>
 
@@ -50,7 +51,7 @@ ${figure('mount-validation.png','Grouped bar chart comparing joint-6 encoder rot
 ${figure('trajectory-detail.jpg','Cropped RViz frame with the cyan end-effector trace near the gold target and a gold base-motion trail below the arm.','A closer look at the real experiment’s reconstructed motion: the gold trail below the arm records base movement, while the cyan end-effector trace stays near the captured target above. Frame at recording time 195 s.','figure-small')}
 </section>
 
-<section id="results"><h2>Experimental results</h2>
+<section id="results"><h2>Results</h2>
 <p>The real arm counteracted manually applied base motion and settled after the base stopped. Two documented trials show the progression from horizontal disturbance testing to sustained 3D compensation.</p>
 <div class="table-scroll" role="region" tabindex="0" aria-label="Real-arm test results"><table class="result-table arm-results"><caption>Results from separate physical experiments</caption><thead><tr><th scope="col">Trial</th><th scope="col">Control time</th><th scope="col">Final-10-s mean<br>position / orientation error</th></tr></thead><tbody>
 <tr><th scope="row">≈10 cm horizontal base displacement over ≈5 s</th><td>128.27 s</td><td><strong>2.31 mm / 0.53°</strong></td></tr>

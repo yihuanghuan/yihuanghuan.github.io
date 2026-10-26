@@ -19,12 +19,6 @@ const out = join(root, 'dist');
 const mediaSizes = JSON.parse(await readFile(join(root,'scripts/media-sizes.json'),'utf8'));
 const styleVersion = createHash('sha256').update(await readFile(join(root,'public/styles.css'))).digest('hex').slice(0,10);
 const escape = value => String(value).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-const titles = {
-  'end-effector-stabilization': 'Visual-Inertial End-Effector Stabilization under Base Motion',
-  'late-swarm': 'LATE-Swarm: Language-Guided UAV Swarm Reconfiguration',
-  'nomad-navigation': 'Adapting NoMaD for Interactive Navigation on TITA',
-  'uav-swarm-control': 'Distributed UAV Swarm Formation and Obstacle Avoidance'
-};
 const external = (label, url) => `<a href="${escape(url)}">${escape(label)}</a>`;
 
 function shell({ title, description, body, prefix = './' }) {
@@ -42,8 +36,8 @@ function projectRow(p) {
  const status = p.slug === 'late-swarm' ? '<br><span class="submission-status">Submitted to <strong>ICRA 2027</strong></span><span class="review-status"> · Under review</span>' : '';
  const authors = p.slug === 'late-swarm' ? '<div><strong>Yihuan Huang</strong>, Hongwei Chen, Jianxiang Wang, JianYu Kong, Tao Jiang</div>' : '';
  const thumbnail = p.thumbnail ? `<a class="research-thumbnail" href="./projects/${p.slug}/"><img src="./assets/${escape(p.thumbnail)}" alt="${escape(p.imageAlt)}" loading="lazy"></a>` : '';
- const extraLinks = p.slug === 'late-swarm' ? ' / <a href="./files/late-swarm.pdf">Paper</a> / <a href="./projects/late-swarm/#demo">Video</a>' : ['nomad-navigation','end-effector-stabilization'].includes(p.slug) ? ` / <a href="./projects/${p.slug}/#demo">Videos</a>` : '';
- return `<tr><td class="research-entry"><div class="${thumbnail?'research-with-image':'research-text'}">${thumbnail}<div><h3 class="papertitle"><a href="./projects/${p.slug}/">${escape(titles[p.slug])}</a></h3>${authors}<div class="entry-meta">${escape(p.organization)} · ${escape(p.period)}${status}</div><div class="entry-links"><a href="./projects/${p.slug}/">Project</a> / ${external('Code',p.links[0].url)}${extraLinks}</div><p>${escape(p.summary)}</p></div></div></td></tr>`;
+ const extraLinks = (p.slug === 'late-swarm' ? ' / <a href="./files/late-swarm.pdf">Paper</a>' : '') + ` / <a href="./projects/${p.slug}/#demo">Video</a>`;
+ return `<tr><td class="research-entry"><div class="${thumbnail?'research-with-image':'research-text'}">${thumbnail}<div><h3 class="papertitle"><a href="./projects/${p.slug}/">${escape(p.title)}</a></h3>${authors}<div class="entry-meta">${escape(p.organization)} · ${escape(p.period)}${status}</div><div class="entry-links"><a href="./projects/${p.slug}/">Project</a> / ${external('Code',p.links[0].url)}${extraLinks}</div><p>${escape(p.summary)}</p></div></div></td></tr>`;
 }
 
 function home() {
@@ -58,26 +52,30 @@ function home() {
 <div class="research-with-image"><a class="research-thumbnail" href="./projects/vex-robotics/"><img src="./assets/vex/thumbnail.jpg" alt="Practice-field testing of a VEX robot at Chongqing University." width="660" height="660" loading="lazy"></a><div>
 <h3 class="papertitle"><a href="./projects/vex-robotics/">${escape(competitionProjects[0].title)}</a></h3>
 <div class="entry-meta">Chongqing University · 2024–2025 High Stakes season<br>Deputy Lead, Control Systems Group</div>
-<div class="entry-links"><a href="./projects/vex-robotics/">Experience</a> / <a href="./projects/vex-robotics/#demo">Competition video</a></div>
+<div class="entry-links"><a href="./projects/vex-robotics/">Project</a> / <a href="./projects/vex-robotics/#demo">Video</a></div>
 <p>${escape(competitionProjects[0].summary)}</p>
 <p>2025 VEX Worlds · <strong>Technology Division quarter-finalist</strong> (CQU2).</p>
 </div></div></section>
-<section id="additional-projects"><h2>Other Projects</h2><table class="research-table" role="presentation"><tbody>${courseProjects.map(p => `<tr><td class="research-entry"><div class="research-with-image"><a class="research-thumbnail" href="./projects/${p.slug}/"><img src="./assets/${p.thumbnail}" alt="${escape(p.imageAlt)}" loading="lazy"></a><div><h3 class="papertitle"><a href="./projects/${p.slug}/">${escape(p.title)}</a></h3><div class="entry-meta">${escape(p.course)} · Course project</div><div class="entry-links"><a href="./projects/${p.slug}/">Project</a>${p.slug === 'stirling-engine' ? ` / <a href="./projects/${p.slug}/#demo">Experiment video</a>` : ''}</div><p>${escape(p.summary)}</p></div></div></td></tr>`).join('')}</tbody></table></section>
+<section id="additional-projects"><h2>Other Projects</h2><table class="research-table" role="presentation"><tbody>${courseProjects.map(p => `<tr><td class="research-entry"><div class="research-with-image"><a class="research-thumbnail" href="./projects/${p.slug}/"><img src="./assets/${p.thumbnail}" alt="${escape(p.imageAlt)}" loading="lazy"></a><div><h3 class="papertitle"><a href="./projects/${p.slug}/">${escape(p.title)}</a></h3><div class="entry-meta">${escape(p.course)} · ${escape(p.period)}<br>${escape(p.projectType)}</div><div class="entry-links"><a href="./projects/${p.slug}/">Project</a>${p.slug === 'stirling-engine' ? ` / <a href="./projects/${p.slug}/#demo">Video</a>` : ''}</div><p>${escape(p.summary)}</p></div></div></td></tr>`).join('')}</tbody></table></section>
 <section id="education"><h2>Education</h2><p><strong>Chongqing University</strong>, B.Eng. in Robotics Engineering<br>Sep 2023–Jun 2027 (expected)</p></section>
 <section id="experience"><h2>Teaching & Mentoring</h2><ul class="plain-list"><li><strong>Undergraduate Teaching Assistant</strong>, Department of Robotics Engineering<br>Guided more than 90 students through STM32 programming and debugging.</li></ul></section>`;
  return shell({title:'Yihuan Huang',description:'Yihuan Huang, Robotics Engineering undergraduate at Chongqing University. Research interests in robot learning, vision-language-action policies, and generalizable manipulation.',body});
 }
 
+const projectRenderers = {
+ 'mobile-manipulator': mobileManipulatorBody,
+ 'stirling-engine': stirlingEngineBody,
+ 'ecg-signal-processing': ecgBody,
+ 'vex-robotics': vexBody,
+ 'end-effector-stabilization': westlakeBody,
+ 'nomad-navigation': nomadBody,
+ 'uav-swarm-control': uavSwarmBody,
+ 'late-swarm': lateSwarmBody
+};
 function detail(p) {
- if (p.slug === 'mobile-manipulator') return shell({title:'Mobile Manipulation and Writing | Yihuan Huang',description:p.summary,body:mobileManipulatorBody(),prefix:'../../'});
- if (p.slug === 'stirling-engine') return shell({title:'Stirling Engine Modeling and Prototyping | Yihuan Huang',description:p.summary,body:stirlingEngineBody(),prefix:'../../'});
- if (p.slug === 'ecg-signal-processing') return shell({title:'Embedded ECG Signal Processing | Yihuan Huang',description:p.summary,body:ecgBody(),prefix:'../../'});
- if (p.slug === 'vex-robotics') return shell({title:'VEX Robotics | Yihuan Huang',description:p.summary,body:vexBody(),prefix:'../../'});
- if (p.slug === 'end-effector-stabilization') return shell({title:'End-Effector Stabilization | Yihuan Huang',description:p.summary,body:westlakeBody(),prefix:'../../'});
- if (p.slug === 'nomad-navigation') return shell({title:'NoMaD on TITA | Yihuan Huang',description:p.summary,body:nomadBody(),prefix:'../../'});
- if (p.slug === 'uav-swarm-control') return shell({title:'UAV Swarm Control | Yihuan Huang',description:p.summary,body:uavSwarmBody(),prefix:'../../'});
- if (p.slug === 'late-swarm') return shell({title:'LATE-Swarm | Yihuan Huang',description:p.summary,body:lateSwarmBody(),prefix:'../../'});
- throw new Error(`No implemented project page for ${p.slug}`);
+ const render = projectRenderers[p.slug];
+ if (!render) throw new Error(`No implemented project page for ${p.slug}`);
+ return shell({title:`${p.title} | Yihuan Huang`,description:p.summary,body:render(p),prefix:'../../'});
 }
 
 function preparePage(html, target) {
