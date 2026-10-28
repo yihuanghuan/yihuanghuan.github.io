@@ -21,12 +21,12 @@ const styleVersion = createHash('sha256').update(await readFile(join(root,'publi
 const escape = value => String(value).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const external = (label, url) => `<a href="${escape(url)}">${escape(label)}</a>`;
 
-function shell({ title, description, body, prefix = './' }) {
+function shell({ title, description, body, prefix = './', homePage = false }) {
  const back = prefix === '../../' ? body.match(/class="back-link"[^>]*><a href="([^"]+)">([^<]+)<\/a>/) : null;
  const returnLink = back ? `<nav class="project-return" aria-label="Return to project listing"><a href="${back[1]}">${back[2]}</a></nav>` : '';
  return `<!DOCTYPE HTML>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="${escape(description)}"><meta name="author" content="Yihuan Huang"><meta name="robots" content="index,follow"><title>${escape(title)}</title><link rel="stylesheet" href="${prefix}template.css"><link rel="stylesheet" href="${prefix}styles.css?v=${styleVersion}"></head>
-<body><a class="skip-link" href="#main">Skip to content</a><main id="main"><table class="page-table" role="presentation"><tbody><tr><td class="page-cell">
+<body${homePage ? ' class="homepage"' : ''}><a class="skip-link" href="#main">Skip to content</a><main id="main"><table class="page-table" role="presentation"><tbody><tr><td class="page-cell">
 ${body}${returnLink}
 <footer><a href="${prefix}">Yihuan Huang</a> · Updated Oct 2026<br>Template adapted from <a href="https://jonbarron.info/">Jon Barron</a>.</footer>
 </td></tr></tbody></table></main></body></html>`;
@@ -59,7 +59,7 @@ function home() {
 <section id="additional-projects"><h2>Other Projects</h2><table class="research-table" role="presentation"><tbody>${courseProjects.map(p => `<tr><td class="research-entry"><div class="research-with-image"><a class="research-thumbnail" href="./projects/${p.slug}/"><img src="./assets/${p.thumbnail}" alt="${escape(p.imageAlt)}" loading="lazy"></a><div><h3 class="papertitle"><a href="./projects/${p.slug}/">${escape(p.title)}</a></h3><div class="entry-meta">${escape(p.course)} · ${escape(p.period)}<br>${escape(p.projectType)}</div><div class="entry-links"><a href="./projects/${p.slug}/">Project</a>${p.slug === 'stirling-engine' ? ` / <a href="./projects/${p.slug}/#demo">Video</a>` : ''}</div><p>${escape(p.summary)}</p></div></div></td></tr>`).join('')}</tbody></table></section>
 <section id="education"><h2>Education</h2><p><strong>Chongqing University</strong>, B.Eng. in Robotics Engineering<br>Sep 2023–Jun 2027 (expected)</p></section>
 <section id="experience"><h2>Teaching & Mentoring</h2><ul class="plain-list"><li><strong>Undergraduate Teaching Assistant</strong>, Department of Robotics Engineering<br>Guided more than 90 students through STM32 programming and debugging.</li></ul></section>`;
- return shell({title:'Yihuan Huang',description:'Yihuan Huang, Robotics Engineering undergraduate at Chongqing University. Research interests in robot learning, vision-language-action policies, and generalizable manipulation.',body});
+ return shell({title:'Yihuan Huang',description:'Yihuan Huang, Robotics Engineering undergraduate at Chongqing University. Research interests in robot learning, vision-language-action policies, and generalizable manipulation.',body,homePage:true});
 }
 
 const projectRenderers = {
