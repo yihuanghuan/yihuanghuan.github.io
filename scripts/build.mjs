@@ -33,8 +33,8 @@ ${body}${returnLink}
 }
 
 function projectRow(p) {
- const status = p.slug === 'late-swarm' ? '<br><span class="submission-status">Submitted to <strong>ICRA 2027</strong></span><span class="review-status"> · Under review</span>' : '';
- const authors = p.slug === 'late-swarm' ? '<div><strong>Yihuan Huang</strong>, Hongwei Chen, Jianxiang Wang, JianYu Kong, Tao Jiang</div>' : '';
+ const status = p.slug === 'late-swarm' ? '<br><span class="status-marker"><span class="submission-status">Submitted to <strong>ICRA 2027</strong></span><span class="review-status"> · Under review</span></span>' : '';
+ const authors = p.slug === 'late-swarm' ? '<div class="entry-authors"><strong>Yihuan Huang</strong>, Hongwei Chen, Jianxiang Wang, JianYu Kong, Tao Jiang</div>' : '';
  const thumbnailFile = p.slug === 'nomad-navigation' ? 'nomad/tita-external-poster.jpg' : p.thumbnail;
  const thumbnailAlt = {'late-swarm':'Sixteen-UAV formation reconfiguration in Gazebo.','uav-swarm-control':'Simulink leader–follower formation navigating around spherical obstacles.','nomad-navigation':'TITA wheeled-legged robot moving and turning during the recorded physical navigation trial.'}[p.slug] || p.imageAlt;
  const loop = {'late-swarm':['late',480,240],'uav-swarm-control':['uav',480,280],'nomad-navigation':['nomad',480,360]}[p.slug];
@@ -57,7 +57,7 @@ function home() {
 <div class="entry-meta">Chongqing University · 2024–2025 High Stakes season<br>Deputy Lead, Control Systems Group</div>
 <div class="entry-links"><a href="./projects/vex-robotics/">Project</a> / <a href="./projects/vex-robotics/#demo">Video</a></div>
 <p>${escape(competitionProjects[0].summary)}</p>
-<p>2025 VEX Worlds · <strong>Technology Division quarter-finalist</strong> (CQU2).</p>
+<p class="award-marker">2025 VEX Worlds · <strong>Technology Division quarter-finalist</strong> (CQU2).</p>
 </div></div></section>
 <section id="additional-projects"><h2>Other Projects</h2><table class="research-table" role="presentation"><tbody>${courseProjects.map(p => `<tr><td class="research-entry"><div class="research-with-image"><a class="research-thumbnail" href="./projects/${p.slug}/"><img src="./assets/${p.thumbnail}" alt="${escape(p.imageAlt)}" loading="lazy"></a><div><h3 class="papertitle"><a href="./projects/${p.slug}/">${escape(p.title)}</a></h3><div class="entry-meta">${escape(p.course)} · ${escape(p.period)}<br>${escape(p.projectType)}</div><div class="entry-links"><a href="./projects/${p.slug}/">Project</a>${p.slug === 'stirling-engine' ? ` / <a href="./projects/${p.slug}/#demo">Video</a>` : ''}</div><p>${escape(p.summary)}</p></div></div></td></tr>`).join('')}</tbody></table></section>
 <section id="education"><h2>Education</h2><p><strong>Chongqing University</strong>, B.Eng. in Robotics Engineering<br>Sep 2023–Jun 2027 (expected)</p></section>
