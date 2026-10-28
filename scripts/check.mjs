@@ -25,7 +25,9 @@ for(const path of pages){
  }
  for(const m of html.matchAll(/<img\b[^>]*>/g)){if(!/\balt="[^"]+"/.test(m[0]))errors.push(`${path}: image without alt`);if(!/width="[0-9.]+"/.test(m[0])||!/height="[0-9.]+"/.test(m[0]))errors.push(`${path}: missing image dimensions`);}
  for(const m of html.matchAll(/<video\b[^>]*>/g)){
-  if(!/\bcontrols\b/.test(m[0])||/\bautoplay\b/.test(m[0]))errors.push(`${path}: video must have controls and remain paused`);
+  const thumbnailLoop = path === join(root,'index.html') && /class="thumbnail-loop"/.test(m[0]);
+  if(thumbnailLoop){for(const attr of ['autoplay','muted','loop','playsinline'])if(!new RegExp(`\\b${attr}\\b`).test(m[0]))errors.push(`${path}: thumbnail loop missing ${attr}`);if(!/aria-hidden="true"/.test(m[0]))errors.push(`${path}: decorative loop must use the accessible poster`);}
+  else if(!/\bcontrols\b/.test(m[0])||/\bautoplay\b/.test(m[0]))errors.push(`${path}: video must have controls and remain paused`);
   if(!/preload="none"/.test(m[0]))errors.push(`${path}: video should not preload the recording`);
   if(!/width="[0-9.]+"/.test(m[0])||!/height="[0-9.]+"/.test(m[0]))errors.push(`${path}: missing video dimensions`);
  }

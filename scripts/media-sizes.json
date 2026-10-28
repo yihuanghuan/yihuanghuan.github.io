@@ -422,5 +422,29 @@
   "assets/yihuan-huang-portrait.jpg": [
     1261,
     1351
+  ],
+  "assets/homepage-loops/late.mp4": [
+    480,
+    240
+  ],
+  "assets/homepage-loops/late-poster.jpg": [
+    480,
+    240
+  ],
+  "assets/homepage-loops/uav.mp4": [
+    480,
+    280
+  ],
+  "assets/homepage-loops/uav-poster.jpg": [
+    480,
+    280
+  ],
+  "assets/homepage-loops/nomad.mp4": [
+    480,
+    360
+  ],
+  "assets/homepage-loops/nomad-poster.jpg": [
+    480,
+    360
   ]
 }

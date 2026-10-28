@@ -159,3 +159,8 @@ a:hover,a:focus{color:#924b00;text-decoration:underline}
 .homepage .research-thumbnail:is([href$="/late-swarm/"],[href$="/uav-swarm-control/"],[href$="/mobile-manipulator/"]){aspect-ratio:auto}
 .homepage .research-thumbnail:is([href$="/late-swarm/"],[href$="/uav-swarm-control/"],[href$="/mobile-manipulator/"]) img{height:auto;object-fit:contain}
 @media(max-width:600px){.homepage .research-with-image{grid-template-columns:1fr;gap:12px}}
+.homepage .research-thumbnail.thumbnail-has-loop{position:relative;aspect-ratio:var(--loop-ratio)}
+.homepage .research-thumbnail.thumbnail-has-loop>img{width:100%;height:100%;object-fit:contain}
+.homepage .thumbnail-loop{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;pointer-events:none;opacity:0;border-radius:10px}
+.homepage .thumbnail-loop.is-playing{opacity:1}
+@media(prefers-reduced-motion:reduce){.homepage .thumbnail-loop{display:none}}

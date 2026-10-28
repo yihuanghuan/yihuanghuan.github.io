@@ -29,15 +29,16 @@ function shell({ title, description, body, prefix = './', homePage = false }) {
 <body${homePage ? ' class="homepage"' : ''}><a class="skip-link" href="#main">Skip to content</a><main id="main"><table class="page-table" role="presentation"><tbody><tr><td class="page-cell">
 ${body}${returnLink}
 <footer><a href="${prefix}">Yihuan Huang</a> · Updated Oct 2026<br>Template adapted from <a href="https://jonbarron.info/">Jon Barron</a>.</footer>
-</td></tr></tbody></table></main></body></html>`;
+</td></tr></tbody></table></main>${homePage ? '<script src="./thumbnail-loops.js" defer></script>' : ''}</body></html>`;
 }
 
 function projectRow(p) {
  const status = p.slug === 'late-swarm' ? '<br><span class="submission-status">Submitted to <strong>ICRA 2027</strong></span><span class="review-status"> · Under review</span>' : '';
  const authors = p.slug === 'late-swarm' ? '<div><strong>Yihuan Huang</strong>, Hongwei Chen, Jianxiang Wang, JianYu Kong, Tao Jiang</div>' : '';
  const thumbnailFile = p.slug === 'nomad-navigation' ? 'nomad/tita-external-poster.jpg' : p.thumbnail;
- const thumbnailAlt = p.slug === 'nomad-navigation' ? 'TITA wheeled-legged robot during the recorded physical navigation trial.' : p.imageAlt;
- const thumbnail = thumbnailFile ? `<a class="research-thumbnail" href="./projects/${p.slug}/"><img src="./assets/${escape(thumbnailFile)}" alt="${escape(thumbnailAlt)}" loading="lazy"></a>` : '';
+ const thumbnailAlt = {'late-swarm':'Sixteen-UAV formation reconfiguration in Gazebo.','uav-swarm-control':'Simulink leader–follower formation navigating around spherical obstacles.','nomad-navigation':'TITA wheeled-legged robot moving and turning during the recorded physical navigation trial.'}[p.slug] || p.imageAlt;
+ const loop = {'late-swarm':['late',480,240],'uav-swarm-control':['uav',480,280],'nomad-navigation':['nomad',480,360]}[p.slug];
+ const thumbnail = loop ? `<a class="research-thumbnail thumbnail-has-loop" style="--loop-ratio:${loop[1]} / ${loop[2]}" href="./projects/${p.slug}/"><img src="./assets/homepage-loops/${loop[0]}-poster.jpg" alt="${escape(thumbnailAlt)}" loading="lazy"><video class="thumbnail-loop" autoplay muted loop playsinline preload="none" aria-hidden="true" tabindex="-1" poster="./assets/homepage-loops/${loop[0]}-poster.jpg"><source data-src="./assets/homepage-loops/${loop[0]}.mp4" type="video/mp4"></video></a>` : thumbnailFile ? `<a class="research-thumbnail" href="./projects/${p.slug}/"><img src="./assets/${escape(thumbnailFile)}" alt="${escape(thumbnailAlt)}" loading="lazy"></a>` : '';
  const extraLinks = (p.slug === 'late-swarm' ? ' / <a href="./files/late-swarm.pdf">Paper</a>' : '') + ` / <a href="./projects/${p.slug}/#demo">Video</a>`;
  return `<tr><td class="research-entry"><div class="${thumbnail?'research-with-image':'research-text'}">${thumbnail}<div><h3 class="papertitle"><a href="./projects/${p.slug}/">${escape(p.title)}</a></h3>${authors}<div class="entry-meta">${escape(p.organization)} · ${escape(p.period)}${status}</div><div class="entry-links"><a href="./projects/${p.slug}/">Project</a> / ${external('Code',p.links[0].url)}${extraLinks}</div><p>${escape(p.summary)}</p></div></div></td></tr>`;
 }
@@ -101,7 +102,7 @@ function preparePage(html, target) {
   const size = sizeFor(src);
   const tag = video.match(/^<video\b[^>]*>/)[0];
   const sized = dimensions(tag,size).replace(/>$/,` style="aspect-ratio:${size[0]} / ${size[1]}">`);
-  return video.replace(tag,sized)+`<p class="video-open"><a href="${src}">Open video</a></p>`;
+  return video.replace(tag,sized)+(tag.includes('class="thumbnail-loop"') ? '' : `<p class="video-open"><a href="${src}">Open video</a></p>`);
  });
  return html.replace(/<figure\b[^>]*>[\s\S]*?<\/figure>/g, figure => {
   const image = figure.match(/<img\b[^>]*\bsrc="([^"]+)"/);
