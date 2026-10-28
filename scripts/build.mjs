@@ -35,7 +35,9 @@ ${body}${returnLink}
 function projectRow(p) {
  const status = p.slug === 'late-swarm' ? '<br><span class="submission-status">Submitted to <strong>ICRA 2027</strong></span><span class="review-status"> · Under review</span>' : '';
  const authors = p.slug === 'late-swarm' ? '<div><strong>Yihuan Huang</strong>, Hongwei Chen, Jianxiang Wang, JianYu Kong, Tao Jiang</div>' : '';
- const thumbnail = p.thumbnail ? `<a class="research-thumbnail" href="./projects/${p.slug}/"><img src="./assets/${escape(p.thumbnail)}" alt="${escape(p.imageAlt)}" loading="lazy"></a>` : '';
+ const thumbnailFile = p.slug === 'nomad-navigation' ? 'nomad/tita-external-poster.jpg' : p.thumbnail;
+ const thumbnailAlt = p.slug === 'nomad-navigation' ? 'TITA wheeled-legged robot during the recorded physical navigation trial.' : p.imageAlt;
+ const thumbnail = thumbnailFile ? `<a class="research-thumbnail" href="./projects/${p.slug}/"><img src="./assets/${escape(thumbnailFile)}" alt="${escape(thumbnailAlt)}" loading="lazy"></a>` : '';
  const extraLinks = (p.slug === 'late-swarm' ? ' / <a href="./files/late-swarm.pdf">Paper</a>' : '') + ` / <a href="./projects/${p.slug}/#demo">Video</a>`;
  return `<tr><td class="research-entry"><div class="${thumbnail?'research-with-image':'research-text'}">${thumbnail}<div><h3 class="papertitle"><a href="./projects/${p.slug}/">${escape(p.title)}</a></h3>${authors}<div class="entry-meta">${escape(p.organization)} · ${escape(p.period)}${status}</div><div class="entry-links"><a href="./projects/${p.slug}/">Project</a> / ${external('Code',p.links[0].url)}${extraLinks}</div><p>${escape(p.summary)}</p></div></div></td></tr>`;
 }
@@ -49,7 +51,7 @@ function home() {
 <section id="current-work"><h2>Current Work</h2><p class="entry-meta">Progress update · Oct 2026</p><p>In Assoc. Prof. Can Pu’s lab, I have reproduced, fine-tuned, and deployed <strong>π0.5</strong> using the lab’s existing workflow and semi-humanoid robot. The deployed policy picks the block color specified in an instruction and places it into a box; further evaluation is in progress.</p></section>
 <section id="research"><h2>Research</h2><table class="research-table" role="presentation"><tbody>${projects.map(projectRow).join('')}</tbody></table></section>
 <section id="competitions"><h2>Robotics Competitions & Leadership</h2>
-<div class="research-with-image"><a class="research-thumbnail" href="./projects/vex-robotics/"><img src="./assets/vex/thumbnail.jpg" alt="Practice-field testing of a VEX robot at Chongqing University." width="660" height="660" loading="lazy"></a><div>
+<div class="research-with-image"><a class="research-thumbnail" href="./projects/vex-robotics/"><img src="./assets/vex/worlds-team.jpg" alt="Chongqing University team with their robots at the VEX World Championship." loading="lazy"></a><div>
 <h3 class="papertitle"><a href="./projects/vex-robotics/">${escape(competitionProjects[0].title)}</a></h3>
 <div class="entry-meta">Chongqing University · 2024–2025 High Stakes season<br>Deputy Lead, Control Systems Group</div>
 <div class="entry-links"><a href="./projects/vex-robotics/">Project</a> / <a href="./projects/vex-robotics/#demo">Video</a></div>
