@@ -188,3 +188,11 @@ a:hover,a:focus{color:#924b00;text-decoration:underline}
 .homepage .award-marker strong{font-size:inherit}
 @media(max-width:600px){.homepage .name{font-size:26px}.homepage h2{font-size:22px}.homepage section{margin-top:28px}.homepage h3.papertitle{font-size:18px}}
 @media(max-width:360px){.homepage .name{font-size:24px}}
+
+/* Larger homepage reading text; titles and project-detail styles are retained. */
+.homepage,.homepage :is(td,p,li){font-size:16px}
+.homepage :is(a,strong){font-size:inherit}
+.homepage .entry-meta,.homepage .entry-authors,.homepage .entry-links,.homepage .contact-links,.homepage p.award-marker{font-size:14px}
+.homepage footer,.homepage footer a{font-size:12px}
+.homepage .research-thumbnail.thumbnail-has-loop[href$="/late-swarm/"]{aspect-ratio:3/2}
+.homepage .research-thumbnail.thumbnail-has-loop[href$="/late-swarm/"]>img,.homepage .research-thumbnail.thumbnail-has-loop[href$="/late-swarm/"]>.thumbnail-loop{height:100%;object-fit:fill}
