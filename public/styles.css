@@ -196,3 +196,39 @@ a:hover,a:focus{color:#924b00;text-decoration:underline}
 .homepage footer,.homepage footer a{font-size:12px}
 .homepage .research-thumbnail.thumbnail-has-loop[href$="/late-swarm/"]{aspect-ratio:3/2}
 .homepage .research-thumbnail.thumbnail-has-loop[href$="/late-swarm/"]>img,.homepage .research-thumbnail.thumbnail-has-loop[href$="/late-swarm/"]>.thumbnail-loop{height:100%;object-fit:fill}
+
+/* Consistent reading hierarchy across all eight project detail pages. */
+.project-page,.project-page .page-cell,.project-page .project-detail{font-size:16px}
+.project-page :is(p,li,ol,ul,tr,td,th,a,strong,span,em,i,small,code){font-size:inherit}
+.project-page .project-detail p{font-size:16px}
+.project-page .project-detail :is(a,strong,span,em,i){font-size:inherit}
+.project-page .project-detail h1{font-size:30px;line-height:1.3;font-weight:700;color:#142432;margin-bottom:16px}
+.project-page .project-detail h2,.project-page .related-projects h2{font-size:26px;line-height:1.35;font-weight:700;color:#233644;padding-bottom:8px;border-bottom:1px solid #e3e8ed;margin-bottom:16px}
+.project-page .project-detail h3{font-size:20px;line-height:1.4;font-weight:700;color:#243b50;margin:26px 0 12px}
+.project-page .project-detail h4{font-size:18px;line-height:1.45;font-weight:700;margin:22px 0 10px}
+.project-page .project-detail section{margin-top:34px}
+.project-page .project-detail header p{font-size:15px;line-height:1.65;color:#53616d}
+.project-page .project-detail header p.resource-nav{font-size:16px}
+.project-page .project-detail .project-abstract{font-size:16px;line-height:1.7;color:#233644;border-left:3px solid #c9d7e3;padding-left:14px;margin:24px 0}
+.project-page :is(.back-link,.project-return,.course-section-links,.related-projects){font-size:16px;line-height:1.7}
+.project-page .project-detail :is(figcaption,.table-note,.figure-open,.video-open){font-size:14px;line-height:1.65;color:#4b5563}
+.project-page .project-detail figcaption p{font-size:inherit}
+.project-page .project-detail .vex-memory p+p{font-size:14px;line-height:1.65}
+.project-page .nomad-demo-grid h3{margin-top:0}
+.project-page .result-table{font-size:15px;min-width:480px;table-layout:auto;overflow-wrap:normal}
+.project-page .late-swarm-page .result-table{min-width:520px}
+.project-page .result-table.arm-results{min-width:520px;table-layout:fixed}
+.project-page .project-detail .result-table :is(th,td){font-size:15px;line-height:1.55;padding:10px 12px;overflow-wrap:normal;color:#27313d}
+.project-page .project-detail .table-title{font-size:14px;line-height:1.6;font-weight:700;color:#3c4955;margin:0 0 8px}
+.project-page .detail-table{margin:18px 0 8px}
+.project-page .detail-table .table-scroll{margin:0}
+.project-page .result-table thead th{background:#f2f5f8;border-bottom:1px solid #b9c5cf}
+.project-page .table-scroll{border:1px solid #dce2e8;border-radius:4px;scrollbar-color:#8796a3 #edf1f4;scrollbar-width:thin}
+.project-page .table-scroll::-webkit-scrollbar{height:10px}
+.project-page .table-scroll::-webkit-scrollbar-track{background:#edf1f4}
+.project-page .table-scroll::-webkit-scrollbar-thumb{background:#8796a3;border-radius:5px}
+.project-page .table-scroll .result-table{margin:0}
+.project-page .detail-submission{display:inline-block;margin-top:8px;padding:5px 10px;border-left:3px solid #2769a4;border-radius:3px;background:#eef5fc;color:#234f80;font-style:normal}
+.project-page .vex-results>li{padding:10px 12px;border-left:3px solid #b6842d;border-radius:3px;background:#fff6e5;color:#704809;margin-bottom:12px}
+.project-page footer,.project-page footer a{font-size:14px}
+@media(max-width:600px){.project-page .project-detail h1{font-size:28px}.project-page .project-detail h2,.project-page .related-projects h2{font-size:24px}.project-page .project-detail h3{font-size:20px}.project-page .project-detail section{margin-top:30px}}

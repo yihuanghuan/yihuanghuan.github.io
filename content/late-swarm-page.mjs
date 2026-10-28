@@ -6,7 +6,7 @@ export function lateSwarmBody(project) {
 <article class="project-detail late-swarm-page">
 <header><h1>${project.title}</h1>
 ${researchMetadata(project)}
-<p><strong>Yihuan Huang</strong>, Hongwei Chen, Jianxiang Wang, JianYu Kong, Tao Jiang<br><em>Submitted to ICRA 2027 · Under review</em></p>
+<p><strong>Yihuan Huang</strong>, Hongwei Chen, Jianxiang Wang, JianYu Kong, Tao Jiang<br><em class="detail-submission">Submitted to ICRA 2027 · Under review</em></p>
 <p><a href="#demo">Demo</a> &nbsp;/&nbsp; <a href="#results">Results</a> &nbsp;/&nbsp; <a href="../../files/late-swarm.pdf">Paper</a> &nbsp;/&nbsp; <a href="https://github.com/yihuanghuan/LLM-UAVswarm-performance">Code</a></p></header>
 <p class="project-abstract">I designed and implemented a language-to-control framework that resolves formation geometry, UAV assignment, and execution timing as the required physical information becomes available. In Gazebo, the framework completed <strong>60/60 missions with 8–16 UAVs</strong>, achieving 0.085 m mean tracking RMSE.</p>
 <section id="demo"><h2>Coordinated missions from language</h2>

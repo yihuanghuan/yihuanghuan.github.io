@@ -26,7 +26,7 @@ function shell({ title, description, body, prefix = './', homePage = false }) {
  const returnLink = back ? `<nav class="project-return" aria-label="Return to project listing"><a href="${back[1]}">${back[2]}</a></nav>` : '';
  return `<!DOCTYPE HTML>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="${escape(description)}"><meta name="author" content="Yihuan Huang"><meta name="robots" content="index,follow"><title>${escape(title)}</title><link rel="stylesheet" href="${prefix}template.css"><link rel="stylesheet" href="${prefix}styles.css?v=${styleVersion}"></head>
-<body${homePage ? ' class="homepage"' : ''}><a class="skip-link" href="#main">Skip to content</a><main id="main"><table class="page-table" role="presentation"><tbody><tr><td class="page-cell">
+<body class="${homePage ? 'homepage' : 'project-page'}"><a class="skip-link" href="#main">Skip to content</a><main id="main"><table class="page-table" role="presentation"><tbody><tr><td class="page-cell">
 ${body}${returnLink}
 <footer><a href="${prefix}">Yihuan Huang</a> · Updated Oct 2026<br>Template adapted from <a href="https://jonbarron.info/">Jon Barron</a>.</footer>
 </td></tr></tbody></table></main>${homePage ? '<script src="./thumbnail-loops.js" defer></script>' : ''}</body></html>`;
@@ -82,6 +82,17 @@ function detail(p) {
 }
 
 function preparePage(html, target) {
+ if (target !== join(out,'index.html')) {
+  html = html.replace(/<header>[\s\S]*?<\/header>/, header => header.replace(/<p>(?=<a href="#demo">)/, '<p class="resource-nav">'));
+  let tableIndex = 0;
+  html = html.replace(/<div class="table-scroll"[^>]*>(<table class="result-table\b[^>]*>[\s\S]*?<\/table>)<\/div>|(<table class="result-table\b[^>]*>[\s\S]*?<\/table>)/g, (_, wrapped, bare) => {
+   const table = wrapped || bare;
+   const caption = table.match(/<caption>([\s\S]*?)<\/caption>/);
+   const titleId = `table-title-${++tableIndex}`;
+   const labelled = table.replace(/<caption>[\s\S]*?<\/caption>/,'').replace('<table ',`<table aria-labelledby="${titleId}" `);
+   return `<div class="detail-table"><p class="table-title" id="${titleId}">${caption?.[1] || 'Project results'}</p><div class="table-scroll" role="region" tabindex="0" aria-labelledby="${titleId}">${labelled}</div></div>`;
+  });
+ }
  const detailedFigures = new Set([
   'assets/late-swarm/framework.png', 'assets/late-swarm/commitment-results.png', 'assets/late-swarm/motion-style-results.png',
   'assets/late-swarm/compositional-mission.png', 'assets/late-swarm/state-dependent-realization.png',
