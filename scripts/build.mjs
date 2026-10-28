@@ -41,11 +41,11 @@ function projectRow(p) {
 }
 
 function home() {
- const body = `<header class="intro" id="about"><h1 class="name">Yihuan Huang <span lang="zh">黄翊桓</span></h1>
+ const body = `<header class="intro intro-with-portrait" id="about"><img class="intro-portrait" src="./assets/yihuan-huang-portrait.jpg" alt="Yihuan Huang beside a semi-humanoid robot in the laboratory." width="1261" height="1351" fetchpriority="high"><div class="intro-copy"><h1 class="name">Yihuan Huang <span lang="zh">黄翊桓</span></h1>
 <p>I am an undergraduate student in Robotics Engineering at <a href="https://www.cqu.edu.cn/">Chongqing University</a>, expecting to graduate in Jun 2027.</p>
 <p>I am interested in <strong>robot learning and generalizable manipulation</strong>, particularly vision-language-action policies. My previous work spans language-guided UAV coordination, visual state estimation, and feedback control on physical robots. I was a visiting research student at the WINDY Lab, Westlake University, advised by Prof. Shiyu Zhao.</p>
 <p>I am seeking a master’s program in robotics in the United States for Fall 2027.</p>
-<p class="contact-links"><a href="mailto:20233692@stu.cqu.edu.cn">Email</a> &nbsp;/&nbsp; <a href="./files/yihuan-huang-cv.pdf">CV</a> &nbsp;/&nbsp; <a href="https://github.com/yihuanghuan">GitHub</a></p></header>
+<p class="contact-links"><a href="mailto:20233692@stu.cqu.edu.cn">Email</a> &nbsp;/&nbsp; <a href="./files/yihuan-huang-cv.pdf">CV</a> &nbsp;/&nbsp; <a href="https://github.com/yihuanghuan">GitHub</a></p></div></header>
 <section id="current-work"><h2>Current Work</h2><p class="entry-meta">Progress update · Oct 2026</p><p>In Assoc. Prof. Can Pu’s lab, I have reproduced, fine-tuned, and deployed <strong>π0.5</strong> using the lab’s existing workflow and semi-humanoid robot. The deployed policy picks the block color specified in an instruction and places it into a box; further evaluation is in progress.</p></section>
 <section id="research"><h2>Research</h2><table class="research-table" role="presentation"><tbody>${projects.map(projectRow).join('')}</tbody></table></section>
 <section id="competitions"><h2>Robotics Competitions & Leadership</h2>

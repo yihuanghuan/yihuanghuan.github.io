@@ -9,6 +9,13 @@ body{margin:0;background:#fff;color:#111;line-height:1.55}
 .name span{font-size:21px;font-weight:400;margin-left:8px}
 .intro p{margin:14px 0}
 .contact-links{text-align:center}
+.intro-with-portrait{display:grid;grid-template-columns:200px minmax(0,1fr);gap:28px;align-items:center}
+.intro-portrait{display:block;width:100%;height:auto;border-radius:4px}
+.intro-copy{min-width:0}
+.intro-with-portrait .name{text-align:left;padding-top:8px}
+.intro-with-portrait .contact-links{text-align:left}
+@media(max-width:600px){.intro-with-portrait{grid-template-columns:84px minmax(0,1fr);gap:0 16px;align-items:center}.intro-copy{display:contents}.intro-portrait{grid-column:1;grid-row:1}.intro-with-portrait .name{grid-column:2;grid-row:1;margin:0;padding:0;font-size:26px}.intro-with-portrait .name span{display:block;margin:5px 0 0;font-size:20px}.intro-copy p{grid-column:1/-1}.intro-copy p:first-of-type{margin-top:20px}}
+@media(max-width:360px){.intro-with-portrait{grid-template-columns:76px minmax(0,1fr);column-gap:14px}.intro-with-portrait .name{font-size:24px}}
 section{margin-top:26px;scroll-margin-top:20px}
 h2{margin:0 0 12px}
 h3.papertitle{font-size:14px;margin:0;line-height:1.55}
