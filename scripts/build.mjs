@@ -3,6 +3,7 @@ import { createHash } from 'node:crypto';
 import { fileURLToPath } from 'node:url';
 import { join, dirname, resolve, relative } from 'node:path';
 import { projects, competitionProjects } from '../content/projects.mjs';
+import { homeSummaries } from '../content/home-summaries.mjs';
 import { lateSwarmBody } from '../content/late-swarm-page.mjs';
 import { uavSwarmBody } from '../content/uav-swarm-page.mjs';
 import { nomadBody } from '../content/nomad-page.mjs';
@@ -37,10 +38,10 @@ function projectRow(p) {
  const authors = p.slug === 'late-swarm' ? '<div class="entry-authors"><strong>Yihuan Huang</strong>, Hongwei Chen, Jianxiang Wang, JianYu Kong, Tao Jiang</div>' : '';
  const thumbnailFile = p.slug === 'nomad-navigation' ? 'nomad/tita-external-poster.jpg' : p.thumbnail;
  const thumbnailAlt = {'late-swarm':'Sixteen-UAV formation reconfiguration in Gazebo.','uav-swarm-control':'Simulink leader–follower formation navigating around spherical obstacles.','nomad-navigation':'TITA wheeled-legged robot moving and turning during the recorded physical navigation trial.'}[p.slug] || p.imageAlt;
- const loop = {'late-swarm':['late',480,240],'uav-swarm-control':['uav',480,280],'nomad-navigation':['nomad',480,360]}[p.slug];
+ const loop = {'late-swarm':['late-v2',540,240],'uav-swarm-control':['uav-v2',480,360],'nomad-navigation':['nomad-v2',480,480]}[p.slug];
  const thumbnail = loop ? `<a class="research-thumbnail thumbnail-has-loop" style="--loop-ratio:${loop[1]} / ${loop[2]}" href="./projects/${p.slug}/"><img src="./assets/homepage-loops/${loop[0]}-poster.jpg" alt="${escape(thumbnailAlt)}" loading="lazy"><video class="thumbnail-loop" autoplay muted loop playsinline preload="none" aria-hidden="true" tabindex="-1" poster="./assets/homepage-loops/${loop[0]}-poster.jpg"><source data-src="./assets/homepage-loops/${loop[0]}.mp4" type="video/mp4"></video></a>` : thumbnailFile ? `<a class="research-thumbnail" href="./projects/${p.slug}/"><img src="./assets/${escape(thumbnailFile)}" alt="${escape(thumbnailAlt)}" loading="lazy"></a>` : '';
- const extraLinks = (p.slug === 'late-swarm' ? ' / <a href="./files/late-swarm.pdf">Paper</a>' : '') + ` / <a href="./projects/${p.slug}/#demo">Video</a>`;
- return `<tr><td class="research-entry"><div class="${thumbnail?'research-with-image':'research-text'}">${thumbnail}<div><h3 class="papertitle"><a href="./projects/${p.slug}/">${escape(p.title)}</a></h3>${authors}<div class="entry-meta">${escape(p.organization)} · ${escape(p.period)}${status}</div><div class="entry-links"><a href="./projects/${p.slug}/">Project</a> / ${external('Code',p.links[0].url)}${extraLinks}</div><p>${escape(p.summary)}</p></div></div></td></tr>`;
+ const extraLinks = (p.slug === 'late-swarm' ? ' | <a href="./files/late-swarm.pdf">paper</a>' : '') + ` | <a href="./projects/${p.slug}/#demo">video</a>`;
+ return `<tr><td class="research-entry"><div class="${thumbnail?'research-with-image':'research-text'}">${thumbnail}<div><h3 class="papertitle"><a href="./projects/${p.slug}/">${escape(p.title)}</a></h3>${authors}<div class="entry-meta">${escape(p.organization)} · ${escape(p.period)}${status}</div><p class="home-summary">${escape(homeSummaries[p.slug])}</p><div class="entry-links"><a href="./projects/${p.slug}/">webpage</a> | ${external('code',p.links[0].url)}${extraLinks}</div></div></div></td></tr>`;
 }
 
 function home() {
@@ -55,11 +56,11 @@ function home() {
 <div class="research-with-image"><a class="research-thumbnail" href="./projects/vex-robotics/"><img src="./assets/vex/worlds-team.jpg" alt="Chongqing University team with their robots at the VEX World Championship." loading="lazy"></a><div>
 <h3 class="papertitle"><a href="./projects/vex-robotics/">${escape(competitionProjects[0].title)}</a></h3>
 <div class="entry-meta">Chongqing University · 2024–2025 High Stakes season<br>Deputy Lead, Control Systems Group</div>
-<div class="entry-links"><a href="./projects/vex-robotics/">Project</a> / <a href="./projects/vex-robotics/#demo">Video</a></div>
-<p>${escape(competitionProjects[0].summary)}</p>
+<p class="home-summary">${escape(homeSummaries[competitionProjects[0].slug])}</p>
 <p class="award-marker">2025 VEX Worlds · <strong>Technology Division quarter-finalist</strong> (CQU2).</p>
+<div class="entry-links"><a href="./projects/vex-robotics/">webpage</a> | <a href="./projects/vex-robotics/#demo">video</a></div>
 </div></div></section>
-<section id="additional-projects"><h2>Other Projects</h2><table class="research-table" role="presentation"><tbody>${courseProjects.map(p => `<tr><td class="research-entry"><div class="research-with-image"><a class="research-thumbnail" href="./projects/${p.slug}/"><img src="./assets/${p.thumbnail}" alt="${escape(p.imageAlt)}" loading="lazy"></a><div><h3 class="papertitle"><a href="./projects/${p.slug}/">${escape(p.title)}</a></h3><div class="entry-meta">${escape(p.course)} · ${escape(p.period)}<br>${escape(p.projectType)}</div><div class="entry-links"><a href="./projects/${p.slug}/">Project</a>${p.slug === 'stirling-engine' ? ` / <a href="./projects/${p.slug}/#demo">Video</a>` : ''}</div><p>${escape(p.summary)}</p></div></div></td></tr>`).join('')}</tbody></table></section>
+<section id="additional-projects"><h2>Other Projects</h2><table class="research-table" role="presentation"><tbody>${courseProjects.map(p => `<tr><td class="research-entry"><div class="research-with-image"><a class="research-thumbnail" href="./projects/${p.slug}/"><img src="./assets/${p.thumbnail}" alt="${escape(p.imageAlt)}" loading="lazy"></a><div><h3 class="papertitle"><a href="./projects/${p.slug}/">${escape(p.title)}</a></h3><div class="entry-meta">${escape(p.course)} · ${escape(p.period)}<br>${escape(p.projectType)}</div><p class="home-summary">${escape(homeSummaries[p.slug])}</p><div class="entry-links"><a href="./projects/${p.slug}/">webpage</a>${p.slug === 'stirling-engine' ? ` | <a href="./projects/${p.slug}/#demo">video</a>` : ''}</div></div></div></td></tr>`).join('')}</tbody></table></section>
 <section id="education"><h2>Education</h2><p><strong>Chongqing University</strong>, B.Eng. in Robotics Engineering<br>Sep 2023–Jun 2027 (expected)</p></section>
 <section id="experience"><h2>Teaching & Mentoring</h2><ul class="plain-list"><li><strong>Undergraduate Teaching Assistant</strong>, Department of Robotics Engineering<br>Guided more than 90 students through STM32 programming and debugging.</li></ul></section>`;
  return shell({title:'Yihuan Huang',description:'Yihuan Huang, Robotics Engineering undergraduate at Chongqing University. Research interests in robot learning, vision-language-action policies, and generalizable manipulation.',body,homePage:true});

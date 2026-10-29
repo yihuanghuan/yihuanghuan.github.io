@@ -36,5 +36,5 @@ for(const path of pages){
 const expectedPages = projects.length + competitionProjects.length + courseProjects.length + 1;
 if(pages.length!==expectedPages)errors.push(`Expected ${expectedPages} pages; found ${pages.length}`);
 const home=await readFile(join(root,'index.html'),'utf8');
-for(const phrase of ['Under review','final-10-s','SLAM and encoders','in progress','Gazebo simulation'])if(!home.includes(phrase))errors.push(`Homepage missing qualifier: ${phrase}`);
+for(const phrase of ['Under review','in progress','in Gazebo','simulated UAV','team-built mobile manipulator'])if(!home.includes(phrase))errors.push(`Homepage missing qualifier: ${phrase}`);
 if(errors.length){console.error(errors.join('\n'));process.exitCode=1;}else console.log(`PASS: ${pages.length} pages, ${checked} local resources/anchors, metadata, image labels and research qualifiers.`);
