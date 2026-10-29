@@ -19,6 +19,7 @@ const root = fileURLToPath(new URL('../', import.meta.url));
 const out = join(root, 'dist');
 const mediaSizes = JSON.parse(await readFile(join(root,'scripts/media-sizes.json'),'utf8'));
 const styleVersion = createHash('sha256').update(await readFile(join(root,'public/styles.css'))).digest('hex').slice(0,10);
+const analyticsVersion = createHash('sha256').update(await readFile(join(root,'public/analytics.js'))).digest('hex').slice(0,10);
 const escape = value => String(value).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const external = (label, url) => `<a href="${escape(url)}">${escape(label)}</a>`;
 
@@ -26,10 +27,10 @@ function shell({ title, description, body, prefix = './', homePage = false }) {
  const back = prefix === '../../' ? body.match(/class="back-link"[^>]*><a href="([^"]+)">([^<]+)<\/a>/) : null;
  const returnLink = back ? `<nav class="project-return" aria-label="Return to project listing"><a href="${back[1]}">${back[2]}</a></nav>` : '';
  return `<!DOCTYPE HTML>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="${escape(description)}"><meta name="author" content="Yihuan Huang"><meta name="robots" content="index,follow"><title>${escape(title)}</title><link rel="stylesheet" href="${prefix}template.css"><link rel="stylesheet" href="${prefix}styles.css?v=${styleVersion}"></head>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="${escape(description)}"><meta name="author" content="Yihuan Huang"><meta name="robots" content="index,follow"><title>${escape(title)}</title><link rel="stylesheet" href="${prefix}template.css"><link rel="stylesheet" href="${prefix}styles.css?v=${styleVersion}"><script defer src="https://cloud.umami.is/script.js" data-website-id="7b00dcc5-ab86-433a-92e3-5c3e9c09ac45" data-domains="yihuanhuang.github.io"></script><script defer src="${prefix}analytics.js?v=${analyticsVersion}"></script></head>
 <body class="${homePage ? 'homepage' : 'project-page'}"><a class="skip-link" href="#main">Skip to content</a><main id="main"><table class="page-table" role="presentation"><tbody><tr><td class="page-cell">
 ${body}${returnLink}
-<footer><a href="${prefix}">Yihuan Huang</a> · Updated Oct 2026<br>Template adapted from <a href="https://jonbarron.info/">Jon Barron</a>.</footer>
+<footer><a href="${prefix}">Yihuan Huang</a> · Updated Oct 2026<br>Template adapted from <a href="https://jonbarron.info/">Jon Barron</a>.<br>This site uses <a href="https://umami.is/">Umami</a> for cookie-free analytics of approximate location, pages visited, and foreground time. Raw IP addresses are not stored in analytics records.</footer>
 </td></tr></tbody></table></main>${homePage ? '<script src="./thumbnail-loops.js" defer></script>' : ''}</body></html>`;
 }
 

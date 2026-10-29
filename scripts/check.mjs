@@ -11,6 +11,8 @@ async function walk(dir){const all=[];for(const e of await readdir(dir,{withFile
 const pages = await walk(root);
 for(const path of pages){
  const html=await readFile(path,'utf8');
+ if((html.match(/data-website-id="7b00dcc5-ab86-433a-92e3-5c3e9c09ac45"/g)||[]).length!==1)errors.push(`${path}: expected one Umami tracker`);
+ if(!/src="[^\"]*analytics\.js\?v=/.test(html))errors.push(`${path}: missing foreground time tracking`);
  if(!/<html lang="en">/.test(html))errors.push(`${path}: missing document language`);
  if(!/<title>[^<]+<\/title>/.test(html))errors.push(`${path}: missing title`);
  if(!/name="description"/.test(html))errors.push(`${path}: missing description`);
