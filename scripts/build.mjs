@@ -49,7 +49,7 @@ function home() {
 <p>I am an undergraduate student in Robotics Engineering at <a href="https://www.cqu.edu.cn/">Chongqing University</a>, expecting to graduate in Jun 2027.</p>
 <p>I am interested in <strong>robot learning and generalizable manipulation</strong>, particularly vision-language-action policies. My previous work spans language-guided UAV coordination, visual state estimation, and feedback control on physical robots. I was a visiting research student at the WINDY Lab, Westlake University, advised by Prof. Shiyu Zhao.</p>
 <p>I am seeking a master’s program in robotics in the United States for Fall 2027.</p>
-<p class="contact-links"><a href="mailto:20233692@stu.cqu.edu.cn">Email</a> &nbsp;/&nbsp; <a href="./files/yihuan-huang-cv.pdf">CV</a> &nbsp;/&nbsp; <a href="https://github.com/yihuanghuan">GitHub</a></p></div></header>
+<p class="contact-links"><a href="mailto:20233692@stu.cqu.edu.cn">Email</a> &nbsp;/&nbsp; <a href="./files/yihuan-huang-cv.pdf">CV</a> &nbsp;/&nbsp; <a href="https://github.com/yihuanhuang">GitHub</a></p></div></header>
 <section id="current-work"><h2>Current Work</h2><p class="entry-meta">Progress update · Oct 2026</p><p>In Assoc. Prof. Can Pu’s lab, I have reproduced, fine-tuned, and deployed <strong>π0.5</strong> using the lab’s existing workflow and semi-humanoid robot. The deployed policy picks the block color specified in an instruction and places it into a box; further evaluation is in progress.</p></section>
 <section id="research"><h2>Research</h2><table class="research-table" role="presentation"><tbody>${projects.map(projectRow).join('')}</tbody></table></section>
 <section id="competitions"><h2>Robotics Competitions & Leadership</h2>
@@ -128,7 +128,7 @@ await mkdir(out,{recursive:true});
 await cp(join(root,'public'),out,{recursive:true});
 await writeFile(join(out,'index.html'),preparePage(home(),join(out,'index.html')));
 for(const project of [...projects,...competitionProjects,...courseProjects]){const target=join(out,'projects',project.slug,'index.html');await mkdir(dirname(target),{recursive:true});await writeFile(target,preparePage(detail(project),target));}
-await writeFile(join(out,'robots.txt'),'User-agent: *\nAllow: /\nSitemap: https://yihuanghuan.github.io/sitemap.xml\n');
+await writeFile(join(out,'robots.txt'),'User-agent: *\nAllow: /\nSitemap: https://yihuanhuang.github.io/sitemap.xml\n');
 await writeFile(join(out,'.nojekyll'),'');
-await writeFile(join(out,'sitemap.xml'),`<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">${['',...[...projects,...competitionProjects,...courseProjects].map(p=>'projects/'+p.slug+'/')].map(path=>`<url><loc>https://yihuanghuan.github.io/${path}</loc></url>`).join('')}</urlset>`);
+await writeFile(join(out,'sitemap.xml'),`<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">${['',...[...projects,...competitionProjects,...courseProjects].map(p=>'projects/'+p.slug+'/')].map(path=>`<url><loc>https://yihuanhuang.github.io/${path}</loc></url>`).join('')}</urlset>`);
 console.log(`Built homepage, ${projects.length} research pages, ${competitionProjects.length} competition page and ${courseProjects.length} course-project pages using the Jon Barron template.`);

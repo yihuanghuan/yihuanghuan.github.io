@@ -1,6 +1,6 @@
 import { researchMetadata } from './projects.mjs';
 const asset = '../../assets/nomad/';
-const code = 'https://github.com/yihuanghuan/NoMaD';
+const code = 'https://github.com/yihuanhuang/NoMaD';
 const figure = (file, alt, caption, cls='') => `<figure class="research-figure ${cls}"><a href="${asset}${file}"><img src="${asset}${file}" alt="${alt}" loading="lazy"></a><figcaption>${caption}</figcaption></figure>`;
 const video = (file, label, caption, cls='') => `<figure class="research-figure ${cls}"><h3>${label}</h3><video controls playsinline preload="none" poster="${asset}${file}-poster.jpg" aria-label="${label}"><source src="${asset}${file}.mp4" type="video/mp4">Your browser does not support embedded video. <a href="${asset}${file}.mp4">Download video</a>.</video><figcaption>${caption}</figcaption></figure>`;
 

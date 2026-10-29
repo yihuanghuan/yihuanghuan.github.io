@@ -1,7 +1,7 @@
 import { researchMetadata } from './projects.mjs';
 const asset = '../../assets/westlake/';
-const branch = 'https://github.com/yihuanghuan/windy-arm/tree/agent/link6-velocity-feedforward';
-const report = 'https://github.com/yihuanghuan/windy-arm/blob/agent/link6-velocity-feedforward/docs/camera_world_hold/';
+const branch = 'https://github.com/yihuanhuang/windy-arm/tree/agent/link6-velocity-feedforward';
+const report = 'https://github.com/yihuanhuang/windy-arm/blob/agent/link6-velocity-feedforward/docs/camera_world_hold/';
 const figure = (file, alt, caption, cls='') => `<figure class="research-figure ${cls}"><a href="${asset}${file}"><img src="${asset}${file}" alt="${alt}" loading="lazy"></a><figcaption>${caption}</figcaption></figure>`;
 const video = (file, label, caption) => `<figure class="research-figure"><h3>${label}</h3><video controls playsinline preload="none" poster="${asset}${file}-poster.jpg" aria-label="${label}"><source src="${asset}${file}.mp4" type="video/mp4">Your browser does not support embedded video. <a href="${asset}${file}.mp4">Download video</a>.</video><figcaption>${caption}</figcaption></figure>`;
 
@@ -68,7 +68,7 @@ ${figure('with-prof-zhao.jpg','Yihuan Huang with Prof. Shiyu Zhao at Westlake Un
 </section>
 
 <section id="resources"><h2>Code and experimental records</h2>
-<p><a href="${branch}">Perception–control integration</a> &nbsp;/&nbsp; <a href="https://github.com/yihuanghuan/D435i_Apriltag">AprilTag and object-pose exploration</a> &nbsp;/&nbsp; <a href="https://github.com/yihuanghuan/ORB_SLAM3">ORB-SLAM3 fork</a></p>
+<p><a href="${branch}">Perception–control integration</a> &nbsp;/&nbsp; <a href="https://github.com/yihuanhuang/D435i_Apriltag">AprilTag and object-pose exploration</a> &nbsp;/&nbsp; <a href="https://github.com/yihuanhuang/ORB_SLAM3">ORB-SLAM3 fork</a></p>
 <p><a href="${report}VELOCITY_FEEDFORWARD.md">Geometry checks and horizontal test record</a> &nbsp;/&nbsp; <a href="${report}VIDEO_DEMO_20260924.md">3D demonstration record</a></p>
 <p>WINDY Lab developed the arm and aerial-manipulation platform. I adapted AprilTag, YOLO, and ORB-SLAM3 for visual feedback, and implemented the geometry correction, disturbance separation, and real-arm control integration.</p>
 </section></article>`;

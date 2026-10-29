@@ -1,6 +1,6 @@
 # Yihuan Huang · Robotics & Robot Learning
 
-Personal academic portfolio: https://yihuanghuan.github.io/
+Personal academic portfolio: https://yihuanhuang.github.io/
 
 ## Development
 

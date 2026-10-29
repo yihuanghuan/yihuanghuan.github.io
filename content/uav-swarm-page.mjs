@@ -1,6 +1,6 @@
 import { researchMetadata } from './projects.mjs';
 const assets = '../../assets/uav-swarm-control/';
-const repo = 'https://github.com/yihuanghuan/Distributed-Multi-UAV-Formation-and-Obstacle-Avoidance-System';
+const repo = 'https://github.com/yihuanhuang/Distributed-Multi-UAV-Formation-and-Obstacle-Avoidance-System';
 const report = path => `${repo}/blob/main/Report/${path}`;
 const figure = (file, alt, caption, compact = false) => `<figure class="research-figure${compact ? ' figure-medium' : ''}"><a href="${assets}${file}"><img src="${assets}${file}" alt="${alt}" loading="lazy"></a><figcaption>${caption}</figcaption></figure>`;
 
@@ -9,7 +9,7 @@ export function uavSwarmBody(project) {
 <article class="project-detail">
 <header><h1>${project.title}</h1>
 ${researchMetadata(project)}
-<p><a href="#demo">Demo</a> &nbsp;/&nbsp; <a href="#results">Results</a> &nbsp;/&nbsp; <a href="${repo}">ROS 2 implementation</a> &nbsp;/&nbsp; <a href="https://github.com/yihuanghuan/distributed-uav-swarm">Simulink implementation</a></p></header>
+<p><a href="#demo">Demo</a> &nbsp;/&nbsp; <a href="#results">Results</a> &nbsp;/&nbsp; <a href="${repo}">ROS 2 implementation</a> &nbsp;/&nbsp; <a href="https://github.com/yihuanhuang/distributed-uav-swarm">Simulink implementation</a></p></header>
 <p class="project-abstract">I integrated distributed formation tracking with local obstacle avoidance in Simulink and ROS 2/PX4 SITL. The system combines neighbor-based acceleration estimation, role-specific avoidance, and bounded formation feedback; a Gazebo wall-escape test finished about 0.4 m from the goal.</p>
 
 <section id="demo"><h2>Formation and avoidance in simulation</h2>
@@ -53,8 +53,8 @@ ${figure('deadlock-comparison.png', 'Leader trajectories with and without rotati
 
 <section id="resources"><h2>Code and references</h2>
 <p><a href="${repo}">Integrated ROS 2 system and experiment reports</a><br>
-<a href="https://github.com/yihuanghuan/apf-swarm-control">Pan reproduction</a> &nbsp;/&nbsp; <a href="https://github.com/yihuanghuan/Leader-Follower-swarm">Wang reproduction</a> &nbsp;/&nbsp; <a href="https://github.com/yihuanghuan/distributed-uav-swarm">Fused Simulink model</a></p>
-<p>Earlier single-UAV work: <a href="https://github.com/yihuanghuan/minisnap_PID">minimum-snap tracking</a>, <a href="https://github.com/yihuanghuan/minisnap_LADRC">minimum-snap + LADRC</a>, <a href="https://github.com/yihuanghuan/A_minisnap">A* + minimum-snap</a>, and <a href="https://github.com/yihuanghuan/circle_LADRC">circular tracking with LADRC</a>.</p>
+<a href="https://github.com/yihuanhuang/apf-swarm-control">Pan reproduction</a> &nbsp;/&nbsp; <a href="https://github.com/yihuanhuang/Leader-Follower-swarm">Wang reproduction</a> &nbsp;/&nbsp; <a href="https://github.com/yihuanhuang/distributed-uav-swarm">Fused Simulink model</a></p>
+<p>Earlier single-UAV work: <a href="https://github.com/yihuanhuang/minisnap_PID">minimum-snap tracking</a>, <a href="https://github.com/yihuanhuang/minisnap_LADRC">minimum-snap + LADRC</a>, <a href="https://github.com/yihuanhuang/A_minisnap">A* + minimum-snap</a>, and <a href="https://github.com/yihuanhuang/circle_LADRC">circular tracking with LADRC</a>.</p>
 <ol class="reference-list"><li id="ref-pan">Z. Pan et al. <a href="https://doi.org/10.1109/TCSII.2021.3112787">An Improved Artificial Potential Field Method for Path Planning and Formation Control of the Multi-UAV Systems</a>.</li>
 <li id="ref-wang">Z. Wang et al. <a href="https://doi.org/10.1109/TMECH.2020.3017816">Distributed Control Algorithm for Leader–Follower Formation Tracking of Multiple Quadrotors: Theory and Experiment</a>.</li></ol></section>
 </article>`;
